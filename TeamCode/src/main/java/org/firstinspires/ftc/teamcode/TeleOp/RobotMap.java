@@ -13,9 +13,7 @@ public class RobotMap {
 
     public RobotMap(HardwareMap Init)
     {
-
        //GLOBAL
-
         try {
             leftExtensionMotor = Init.get(DcMotorEx.class, "leftExtend"); // Usa tus nombres de config
             rightExtensionMotor = Init.get(DcMotorEx.class, "rightExtend"); // Usa tus nombres de config
