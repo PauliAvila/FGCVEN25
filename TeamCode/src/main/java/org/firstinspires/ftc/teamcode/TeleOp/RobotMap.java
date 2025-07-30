@@ -11,6 +11,8 @@ public class RobotMap {
 
     public DcMotorEx leftExtend;
     public DcMotorEx rightExtend;
+    public DcMotorEx intake;
+    public DcMotorEx hanging;
 
 
     public RobotMap(HardwareMap Init)
@@ -27,6 +29,19 @@ public class RobotMap {
         rightExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        intake=Init.get(DcMotorEx.class,"intake");
+        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        hanging=Init.get(DcMotorEx.class,"hanging");
+        hanging.setDirection(DcMotor.Direction.FORWARD);
+        hanging.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hanging.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hanging.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
 
