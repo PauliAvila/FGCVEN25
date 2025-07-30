@@ -7,10 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
@@ -107,21 +105,13 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
-                if (IntakeController.currentStatus == IntakeController.intakeStatus.POWEROFF) {
-                    IntakeController.currentStatus = IntakeController.intakeStatus.FORWARD;
-                }
-                else {
-                    IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
-                }
-            }
 
             if (currentGamepad2.dpad_up && !previousGamepad2.dpad_up) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
                 }
                 else {
-                    IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
+                    HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
                 }
             }
 
@@ -130,7 +120,7 @@ public class teleoperado extends LinearOpMode {
                     HangingController.currentStatus = HangingController.hangingStatus.UNHANG;
                 }
                 else {
-                    IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
+                    HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
                 }
             }
 
@@ -175,6 +165,7 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("rightExtend speed", ExtendController.rightExtend.getVelocity());
             telemetry.addData("leftExtend speed", ExtendController.leftExtend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
+            telemetry.addData("Hanging Status", HangingController.currentStatus);
 
             telemetry.update();
         }
