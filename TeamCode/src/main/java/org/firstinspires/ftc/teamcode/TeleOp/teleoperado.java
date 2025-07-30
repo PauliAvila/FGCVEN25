@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
 
-
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
 public class teleoperado extends LinearOpMode {
@@ -29,7 +28,6 @@ public class teleoperado extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         RobotMap robot = new RobotMap(hardwareMap);
 
         //DRIVETRAIN
@@ -39,6 +37,7 @@ public class teleoperado extends LinearOpMode {
         rightDrive=hardwareMap.get(DcMotorEx.class,"rightDrive");
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
+        //CONTROLLERS
         ExtendController extendController;
         extendController = new ExtendController(robot);
         extendController.update(0);
@@ -89,7 +88,6 @@ public class teleoperado extends LinearOpMode {
             }
 
 
-
             //INTAKE
             if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
                 if (IntakeController.currentStatus == IntakeController.intakeStatus.POWEROFF) {
@@ -109,7 +107,6 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-
             if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
                 if (IntakeController.currentStatus == IntakeController.intakeStatus.POWEROFF) {
                     IntakeController.currentStatus = IntakeController.intakeStatus.FORWARD;
@@ -119,7 +116,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad2.triangle && !previousGamepad2.triangle) {
+            if (currentGamepad2.dpad_up && !previousGamepad2.dpad_up) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
                 }
@@ -128,7 +125,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad2.cross && !previousGamepad2.cross) {
+            if (currentGamepad2.dpad_down && !previousGamepad2.dpad_down) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.UNHANG;
                 }

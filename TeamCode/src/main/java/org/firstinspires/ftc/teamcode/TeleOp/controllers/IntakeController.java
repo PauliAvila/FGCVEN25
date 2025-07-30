@@ -15,7 +15,7 @@ public class IntakeController {
 
     }
 
-    public static intakeStatus currentStatus = intakeStatus.FORWARD;
+    public static intakeStatus currentStatus = intakeStatus.POWEROFF;
     public intakeStatus previousStatus = null;
     public static DcMotorEx intake = null;
 
