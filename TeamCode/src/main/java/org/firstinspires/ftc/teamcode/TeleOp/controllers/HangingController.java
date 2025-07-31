@@ -30,7 +30,7 @@ public class HangingController {
             switch (currentStatus) {
 
                 case HANG:
-                    hanging.setPower(0.85);
+                    hanging.setPower(1);
                     break;
 
                 case POWEROFF:
@@ -38,7 +38,7 @@ public class HangingController {
                     break;
 
                 case  UNHANG:
-                    hanging.setPower(-0.85);
+                    hanging.setPower(-1);
                     break;
 
             }
