@@ -175,6 +175,8 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("rightExtend speed", ExtendController.rightExtend.getVelocity());
             telemetry.addData("leftExtend speed", ExtendController.leftExtend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
+            telemetry.addData("Hanging Status", HangingController.currentStatus);
+
 
             telemetry.update();
         }
