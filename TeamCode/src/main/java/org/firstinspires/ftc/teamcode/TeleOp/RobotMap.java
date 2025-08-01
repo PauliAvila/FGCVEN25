@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class RobotMap {
@@ -11,6 +14,7 @@ public class RobotMap {
     public DcMotorEx rightExtend;
     public DcMotorEx intake;
     public DcMotorEx hanging;
+    public DcMotorEx hangingCore;
 
 
     public RobotMap(HardwareMap Init)
@@ -35,10 +39,17 @@ public class RobotMap {
         intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         hanging=Init.get(DcMotorEx.class,"hanging");
-        hanging.setDirection(DcMotor.Direction.FORWARD);
+        hanging.setDirection(DcMotor.Direction.REVERSE);
         hanging.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hanging.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hanging.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        hangingCore = Init.get(DcMotorEx.class, "hangingCore");
+        hangingCore.setDirection(DcMotorEx.Direction.FORWARD);
+        hangingCore.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        hangingCore.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        hangingCore.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
 
 
 

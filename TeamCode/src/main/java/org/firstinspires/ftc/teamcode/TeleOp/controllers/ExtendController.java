@@ -23,7 +23,6 @@ public class ExtendController {
 
     public int init_position = 0;
     public int collect_position = 2000;
-    public static int medium_position = 1150;
 
     public static int rightLiftSpeed = 2500;
     public static int leftLiftSpeed = 2500;

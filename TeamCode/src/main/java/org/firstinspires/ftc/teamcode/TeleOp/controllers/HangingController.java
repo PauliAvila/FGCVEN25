@@ -17,10 +17,15 @@ public class HangingController {
 
     public static hangingStatus currentStatus = hangingStatus.POWEROFF;
     public hangingStatus previousStatus = null;
-    public static DcMotorEx hanging = null;
+    public static DcMotorEx hanging = null ;
+    public static DcMotorEx hangingCore = null;
+    public static int coreSpeed = 1000;
+    public static int ultraSpeed = 1000;
+
 
     public HangingController(RobotMap robot) {
         hanging = robot.hanging;
+        hangingCore = robot.hangingCore;
     }
 
     public void update(int target) {
@@ -31,14 +36,17 @@ public class HangingController {
 
                 case HANG:
                     hanging.setPower(1);
+                    hangingCore.setPower(1);
                     break;
 
                 case POWEROFF:
-                    hanging.setPower(0);
+                    hanging.setVelocity(0);
+                    hangingCore.setVelocity(0);
                     break;
 
                 case  UNHANG:
                     hanging.setPower(-1);
+                    hangingCore.setPower(-1);
                     break;
 
             }

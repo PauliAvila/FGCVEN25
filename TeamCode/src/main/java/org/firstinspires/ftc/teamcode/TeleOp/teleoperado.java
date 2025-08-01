@@ -21,7 +21,6 @@ public class teleoperado extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
-    private ServoController servoController;
 
     @Override
     public void runOpMode() {
@@ -165,6 +164,9 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("leftExtend speed", ExtendController.leftExtend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
             telemetry.addData("Hanging Status", HangingController.currentStatus);
+            telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
+            telemetry.addData("velocidad ultraplanetary", HangingController.hanging.getVelocity());
+
 
             telemetry.update();
         }
