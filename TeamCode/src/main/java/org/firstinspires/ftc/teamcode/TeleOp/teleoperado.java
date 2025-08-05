@@ -9,6 +9,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+<<<<<<< HEAD
+=======
+import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
+>>>>>>> af8fc15f5f08b1e9bb7b5aa4237abd57b9afaf1b
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
@@ -184,11 +188,14 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("leftExtend speed", ExtendController.leftExtend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
             telemetry.addData("Hanging Status", HangingController.currentStatus);
+<<<<<<< HEAD
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
             telemetry.addData("velocidad ultraplanetary", HangingController.hanging.getVelocity());
             telemetry.addData("Ramp Status", RampController.currentStatus);
 
 
+=======
+>>>>>>> af8fc15f5f08b1e9bb7b5aa4237abd57b9afaf1b
 
             telemetry.update();
         }
