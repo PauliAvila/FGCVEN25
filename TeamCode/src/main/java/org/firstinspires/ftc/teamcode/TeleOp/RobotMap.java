@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class RobotMap {
 
@@ -15,6 +16,9 @@ public class RobotMap {
     public DcMotorEx intake;
     public DcMotorEx hanging;
     public DcMotorEx hangingCore;
+    public Servo leftRamp;
+    public Servo rightRamp;
+
 
 
     public RobotMap(HardwareMap Init)
@@ -49,6 +53,9 @@ public class RobotMap {
         hangingCore.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         hangingCore.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         hangingCore.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        rightRamp=Init.get(Servo.class,"rightRamp");
+        leftRamp=Init.get(Servo.class,"leftRamp");
 
 
 

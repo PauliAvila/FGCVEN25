@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
 
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
@@ -46,6 +47,10 @@ public class teleoperado extends LinearOpMode {
         hangingController = new HangingController(robot);
         hangingController.update(0);
 
+        RampController rampController;
+        rampController = new RampController(robot);
+        rampController.update();
+
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -60,6 +65,10 @@ public class teleoperado extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
+        ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
+        IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
+        HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -122,6 +131,16 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+            if (currentGamepad2.triangle && !previousGamepad2.triangle) {
+                if (RampController.currentStatus == RampController.RampStatus.INIT) {
+                    RampController.currentStatus = RampController.RampStatus.HIGH;
+                }
+                else {
+                    RampController.currentStatus = RampController.RampStatus.INIT;
+                }
+            }
+
+
 
             //DRIVETRAIN
             //Uses left joystick to go forward & strafe, and right joystick to rotate.
@@ -154,6 +173,7 @@ public class teleoperado extends LinearOpMode {
             extendController.update(0);
             intakeController.update(0);
             hangingController.update(0);
+            rampController.update();
 
 
             // Show the elapsed game time and wheel power.
@@ -166,6 +186,8 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Hanging Status", HangingController.currentStatus);
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
             telemetry.addData("velocidad ultraplanetary", HangingController.hanging.getVelocity());
+            telemetry.addData("Ramp Status", RampController.currentStatus);
+
 
 
             telemetry.update();
