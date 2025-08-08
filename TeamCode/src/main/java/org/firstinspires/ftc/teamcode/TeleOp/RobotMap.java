@@ -19,6 +19,13 @@ public class RobotMap {
     public Servo leftRamp;
     public Servo rightRamp;
 
+    public Servo rightFunnel;
+    public Servo leftFunnel;
+
+
+
+
+
 
 
     public RobotMap(HardwareMap Init)
@@ -57,6 +64,8 @@ public class RobotMap {
         rightRamp=Init.get(Servo.class,"rightRamp");
         leftRamp=Init.get(Servo.class,"leftRamp");
 
+        rightFunnel=Init.get(Servo.class,"rightFunnel");
+        leftFunnel=Init.get(Servo.class,"leftFunnel");
 
 
 
