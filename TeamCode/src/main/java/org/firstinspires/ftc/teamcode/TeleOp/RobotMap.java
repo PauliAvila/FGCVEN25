@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 public class RobotMap {
 
@@ -20,6 +21,8 @@ public class RobotMap {
 
     public Servo rightFunnel;
     public Servo leftFunnel;
+
+    public DistanceSensor distance;
 
     public RobotMap(HardwareMap Init)
     {
@@ -36,29 +39,36 @@ public class RobotMap {
         rightExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //INTAKE
         intake=Init.get(DcMotorEx.class,"intake");
         intake.setDirection(DcMotor.Direction.FORWARD);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //HANGING
         hanging=Init.get(DcMotorEx.class,"hanging");
         hanging.setDirection(DcMotor.Direction.REVERSE);
         hanging.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hanging.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hanging.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        hangingCore = Init.get(DcMotorEx.class, "hangingCore");
+        hangingCore=Init.get(DcMotorEx.class, "hangingCore");
         hangingCore.setDirection(DcMotorEx.Direction.FORWARD);
         hangingCore.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         hangingCore.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         hangingCore.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
+        //RAMP
         rightRamp=Init.get(Servo.class,"rightRamp");
         leftRamp=Init.get(Servo.class,"leftRamp");
 
+        //FUNNEL
         rightFunnel=Init.get(Servo.class,"rightFunnel");
         leftFunnel=Init.get(Servo.class,"leftFunnel");
+
+        //DISTANCE SENSOR
+        distance=Init.get(DistanceSensor.class, "distance");
 
     }
 }
