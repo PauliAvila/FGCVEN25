@@ -5,16 +5,17 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.FunnelController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.DistanceSensorController;
 
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
@@ -35,6 +36,7 @@ public class teleoperado extends LinearOpMode {
 
         rightDrive=hardwareMap.get(DcMotorEx.class,"rightDrive");
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+
 
         //CONTROLLERS
         ExtendController extendController;
@@ -57,11 +59,13 @@ public class teleoperado extends LinearOpMode {
         funnelController = new FunnelController(robot);
         funnelController.update();
 
+        DistanceSensorController distanceSensorController;
+        distanceSensorController = new DistanceSensorController(robot);
+        distanceSensorController.update();
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
 
         // see why you need previous Gamepad1 & 2 on gm0
         Gamepad currentGamepad1 = new Gamepad();
@@ -88,7 +92,6 @@ public class teleoperado extends LinearOpMode {
             previousGamepad2.copy(currentGamepad2);
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
-
 
             if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
@@ -124,6 +127,7 @@ public class teleoperado extends LinearOpMode {
             }
 
 
+            //HANGING
             if (currentGamepad2.dpad_up && !previousGamepad2.dpad_up) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
@@ -142,6 +146,16 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+            //SENSOR
+            if (currentGamepad2.circle && !previousGamepad2.circle) {
+                if (DistanceSensorController.currentStatus == DistanceSensorController.distanceSensorStatus.OFF) {
+                    DistanceSensorController.currentStatus = DistanceSensorController.distanceSensorStatus.ON;
+                } else {
+                    DistanceSensorController.currentStatus = DistanceSensorController.distanceSensorStatus.OFF;
+                }
+            }
+
+            //RAMP
             if (currentGamepad2.triangle && !previousGamepad2.triangle) {
                 if (RampController.currentStatus == RampController.RampStatus.INIT) {
                     RampController.currentStatus = RampController.RampStatus.HIGH;
@@ -151,6 +165,8 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+
+            //FUNNEL
             if (currentGamepad2.square && !previousGamepad2.square) {
                 if (FunnelController.currentStatus == FunnelController.FunnelStatus.INIT) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
@@ -159,7 +175,6 @@ public class teleoperado extends LinearOpMode {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
                 }
             }
-
 
 
             //DRIVETRAIN
@@ -209,8 +224,8 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("velocidad ultraplanetary", HangingController.hanging.getVelocity());
             telemetry.addData("Ramp Status", RampController.currentStatus);
             telemetry.addData("Funnel Status", FunnelController.currentStatus);
-
-
+            telemetry.addData("Distance Status", DistanceSensorController.currentStatus);
+            telemetry.addData("Distance", DistanceSensorController.distance.getDistance(DistanceUnit.CM));
 
             telemetry.update();
         }
