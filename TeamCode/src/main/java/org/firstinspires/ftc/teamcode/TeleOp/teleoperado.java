@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.FunnelController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
@@ -52,6 +53,10 @@ public class teleoperado extends LinearOpMode {
         rampController = new RampController(robot);
         rampController.update();
 
+        FunnelController funnelController;
+        funnelController = new FunnelController(robot);
+        funnelController.update();
+
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -63,12 +68,17 @@ public class teleoperado extends LinearOpMode {
         Gamepad currentGamepad2 = new Gamepad();
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
+        FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
+        funnelController.update();
 
         waitForStart();
+
         runtime.reset();
         ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
         IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
         HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
+        FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
+
 
 
         // run until the end of the match (driver presses STOP)
@@ -141,6 +151,15 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+            if (currentGamepad2.square && !previousGamepad2.square) {
+                if (FunnelController.currentStatus == FunnelController.FunnelStatus.INIT) {
+                    FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
+                }
+                else {
+                    FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
+                }
+            }
+
 
 
             //DRIVETRAIN
@@ -174,6 +193,7 @@ public class teleoperado extends LinearOpMode {
             extendController.update(0);
             intakeController.update(0);
             hangingController.update(0);
+            funnelController.update();
             rampController.update();
 
 
@@ -188,6 +208,7 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
             telemetry.addData("velocidad ultraplanetary", HangingController.hanging.getVelocity());
             telemetry.addData("Ramp Status", RampController.currentStatus);
+            telemetry.addData("Funnel Status", FunnelController.currentStatus);
 
 
 

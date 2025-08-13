@@ -7,20 +7,20 @@ import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 @Config
 public class  FunnelController{
 
-    public enum RampStatus {
+    public enum FunnelStatus {
         INIT,
         HIGH,
 
     }
 
-    public static RampStatus currentStatus = RampStatus.INIT;
-    public RampStatus previousStatus = null;
+    public static FunnelStatus currentStatus = FunnelStatus.INIT;
+    public FunnelStatus previousStatus = null;
 
     public Servo leftFunnel = null;
     public Servo rightFunnel = null;
 
-    public static double init_position = 0;
-    public static double high_position = 1;
+    public static double init_position = 0.15;
+    public static double high_position = 0.9;
 
 
 

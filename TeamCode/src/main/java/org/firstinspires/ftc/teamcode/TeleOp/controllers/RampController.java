@@ -24,8 +24,8 @@ public class RampController {
 
     public static double init_positionR = 0.15;
     public static double init_positionL = 0.15;
-    public static double high_positionL = 0.4;
-    public static double high_positionR = 0.4 ;
+    public static double high_positionL = 0.55;
+    public static double high_positionR = 0.55 ;
 
 
     public double currentPosition = init_position;
