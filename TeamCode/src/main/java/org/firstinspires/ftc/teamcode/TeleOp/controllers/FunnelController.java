@@ -22,15 +22,11 @@ public class  FunnelController{
     public static double init_position = 0.15;
     public static double high_position = 0.9;
 
-
-
-
     public double currentPosition = init_position;
 
     public FunnelController (RobotMap robot) {
         this.leftFunnel = robot.leftFunnel;
         this.rightFunnel = robot.rightFunnel;
-
     }
 
     public void update() {

@@ -36,9 +36,13 @@ public class HangingController {
 
                 case HANG:
                     hanging.setPower(1);
+<<<<<<< HEAD
 
                     hangingCore.setPower(1);
 
+=======
+                    hangingCore.setPower(1);
+>>>>>>> a816f384527bd430f19e7bbd6e9662f796e36b71
                     break;
 
                 case POWEROFF:
@@ -49,7 +53,10 @@ public class HangingController {
                 case  UNHANG:
                     hanging.setPower(-1);
                     hangingCore.setPower(-1);
+<<<<<<< HEAD
 
+=======
+>>>>>>> a816f384527bd430f19e7bbd6e9662f796e36b71
                     break;
 
             }

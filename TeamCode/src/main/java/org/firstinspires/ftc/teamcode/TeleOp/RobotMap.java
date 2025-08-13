@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class RobotMap {
 
-
     public DcMotorEx leftExtend;
     public DcMotorEx rightExtend;
     public DcMotorEx intake;
@@ -18,6 +17,7 @@ public class RobotMap {
     public DcMotorEx hangingCore;
     public Servo leftRamp;
     public Servo rightRamp;
+<<<<<<< HEAD
 
     public Servo rightFunnel;
     public Servo leftFunnel;
@@ -26,6 +26,10 @@ public class RobotMap {
 
 
 
+=======
+    public Servo rightFunnel;
+    public Servo leftFunnel;
+>>>>>>> a816f384527bd430f19e7bbd6e9662f796e36b71
 
 
     public RobotMap(HardwareMap Init)
@@ -66,9 +70,12 @@ public class RobotMap {
 
         rightFunnel=Init.get(Servo.class,"rightFunnel");
         leftFunnel=Init.get(Servo.class,"leftFunnel");
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> a816f384527bd430f19e7bbd6e9662f796e36b71
 
     }
 }
