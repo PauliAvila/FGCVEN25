@@ -24,7 +24,10 @@ public class RobotMap {
     public Servo rightFunnel;
     public Servo leftFunnel;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cdf528f0fa273eb8152c2794b1a5dc67193de667
     public RobotMap(HardwareMap Init)
     {
         //EXTENDERS
