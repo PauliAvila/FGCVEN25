@@ -14,8 +14,9 @@ import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.FunnelController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.MultiSensorController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
-import org.firstinspires.ftc.teamcode.TeleOp.controllers.DistanceSensorController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.MultiSensorController;
 
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
@@ -60,9 +61,9 @@ public class teleoperado extends LinearOpMode {
         funnelController = new FunnelController(robot);
         funnelController.update();
 
-        DistanceSensorController distanceSensorController;
-        distanceSensorController = new DistanceSensorController(robot);
-        distanceSensorController.update();
+        MultiSensorController multiSensorController;
+        multiSensorController = new MultiSensorController(robot);
+        multiSensorController.update();
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -94,7 +95,7 @@ public class teleoperado extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
 
-            distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
+            distancerope = MultiSensorController.distance.getDistance(DistanceUnit.CM);
 
             if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
@@ -151,18 +152,17 @@ public class teleoperado extends LinearOpMode {
 
             //SENSOR
             if (currentGamepad2.circle && !previousGamepad2.circle) {
-                if (DistanceSensorController.currentStatus == DistanceSensorController.distanceSensorStatus.OFF) {
-                    DistanceSensorController.currentStatus = DistanceSensorController.distanceSensorStatus.ON;
+                if (MultiSensorController.currentStatus == MultiSensorController.sensorStatus.OFF) {
+                    MultiSensorController.currentStatus = MultiSensorController.sensorStatus.ON;
 
                 } else {
-                    DistanceSensorController.currentStatus = DistanceSensorController.distanceSensorStatus.OFF;
+                    MultiSensorController.currentStatus = MultiSensorController.sensorStatus.OFF;
                 }
             }
 
             if (distancerope < 5){
-                if (DistanceSensorController.currentStatus == DistanceSensorController.distanceSensorStatus.ON){
+                if (MultiSensorController.currentStatus == MultiSensorController.sensorStatus.ON){
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
-
                 }
             }
 
@@ -186,7 +186,6 @@ public class teleoperado extends LinearOpMode {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
                 }
             }
-
 
 
 
@@ -223,7 +222,7 @@ public class teleoperado extends LinearOpMode {
             hangingController.update(0);
             funnelController.update();
             rampController.update();
-            distanceSensorController.update();
+            multiSensorController.update();
 
 
             // Show the elapsed game time and wheel power.
@@ -232,14 +231,33 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("rightExtend", ExtendController.leftExtend.getCurrentPosition());
             telemetry.addData("rightExtend speed", ExtendController.rightExtend.getVelocity());
             telemetry.addData("leftExtend speed", ExtendController.leftExtend.getVelocity());
+
+
             telemetry.addData("Intake Status", IntakeController.currentStatus);
+
+
             telemetry.addData("Hanging Status", HangingController.currentStatus);
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
             telemetry.addData("velocidad ultraplanetary", HangingController.hanging.getVelocity());
+
+
             telemetry.addData("Ramp Status", RampController.currentStatus);
             telemetry.addData("Funnel Status", FunnelController.currentStatus);
-            telemetry.addData("Distance Status", DistanceSensorController.currentStatus);
-            telemetry.addData("Distance", DistanceSensorController.distance.getDistance(DistanceUnit.CM));
+
+
+            telemetry.addData("Distance Status", MultiSensorController.currentStatus);
+            telemetry.addData("Distance", MultiSensorController.distancerope);
+            telemetry.addData("LeftColor Distance", MultiSensorController.leftProximity);
+            telemetry.addData("RightColor Distance", MultiSensorController.rightProximity);
+
+            telemetry.addData("LeftBlue Value", MultiSensorController.leftBlue);
+            telemetry.addData("LeftGreen Value", MultiSensorController.leftGreen);
+            telemetry.addData("LeftRed Value", MultiSensorController.leftRed);
+
+            telemetry.addData("RightBlue Value", MultiSensorController.rightBlue);
+            telemetry.addData("RightGreen Value", MultiSensorController.rightGreen);
+            telemetry.addData("RightRed Value", MultiSensorController.rightRed);
+
 
             telemetry.update();
         }

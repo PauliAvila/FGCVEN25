@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 
 public class RobotMap {
 
@@ -26,6 +27,8 @@ public class RobotMap {
     public Servo leftFunnel;
 
     public DistanceSensor distance;
+    public RevColorSensorV3 colorLeft;
+    public RevColorSensorV3 colorRight;
 
 
     public RobotMap(HardwareMap Init)
@@ -71,8 +74,10 @@ public class RobotMap {
         rightFunnel=Init.get(Servo.class,"rightFunnel");
         leftFunnel=Init.get(Servo.class,"leftFunnel");
 
-        //DISTANCE SENSOR
+        //SENSORS
         distance=Init.get(DistanceSensor.class, "distance");
+        colorLeft=Init.get(RevColorSensorV3.class, "colorLeft");
+        colorRight=Init.get(RevColorSensorV3.class, "colorRight");
 
     }
 }
