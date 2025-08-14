@@ -25,15 +25,9 @@ public class RobotMap {
     public Servo rightFunnel;
     public Servo leftFunnel;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> cdf528f0fa273eb8152c2794b1a5dc67193de667
-=======
     public DistanceSensor distance;
 
->>>>>>> 7a0a36323194d70a8331efd6e0d9938b50b8af97
+
     public RobotMap(HardwareMap Init)
     {
         //EXTENDERS

@@ -25,6 +25,7 @@ public class teleoperado extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+    private double distancerope;
 
     @Override
     public void runOpMode() {
@@ -93,6 +94,8 @@ public class teleoperado extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
 
+            distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
+
             if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
@@ -150,8 +153,16 @@ public class teleoperado extends LinearOpMode {
             if (currentGamepad2.circle && !previousGamepad2.circle) {
                 if (DistanceSensorController.currentStatus == DistanceSensorController.distanceSensorStatus.OFF) {
                     DistanceSensorController.currentStatus = DistanceSensorController.distanceSensorStatus.ON;
+
                 } else {
                     DistanceSensorController.currentStatus = DistanceSensorController.distanceSensorStatus.OFF;
+                }
+            }
+
+            if (distancerope < 5){
+                if (DistanceSensorController.currentStatus == DistanceSensorController.distanceSensorStatus.ON){
+                    HangingController.currentStatus = HangingController.hangingStatus.HANG;
+
                 }
             }
 
@@ -175,6 +186,8 @@ public class teleoperado extends LinearOpMode {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
                 }
             }
+
+
 
 
             //DRIVETRAIN
@@ -210,6 +223,7 @@ public class teleoperado extends LinearOpMode {
             hangingController.update(0);
             funnelController.update();
             rampController.update();
+            distanceSensorController.update();
 
 
             // Show the elapsed game time and wheel power.

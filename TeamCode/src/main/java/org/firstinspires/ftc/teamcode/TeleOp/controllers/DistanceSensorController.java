@@ -21,30 +21,37 @@ public class DistanceSensorController {
     public distanceSensorStatus previousStatus = null;
     public static DistanceSensor distance = null;
 
+    double distancerope ;
+
     public DistanceSensorController(RobotMap robot) {
         distance = robot.distance;
     }
 
     public void update() {
-        double distancerope = 0; // Guardará la medición
+         // Guardará la medición
 
-        switch (currentStatus) {
-            case ON:
-                distancerope = distance.getDistance(DistanceUnit.CM);
+        if (currentStatus != previousStatus) {
+            previousStatus = currentStatus;
 
-                if (distancerope < 5) {
-                    hangingCore.setPower(1);
-                    hanging.setPower(1);
-                } else {
-                    hangingCore.setPower(0);
-                    hanging.setPower(0);
-                }
-                break;
+            switch (currentStatus) {
+                case ON:
+                    distancerope = distance.getDistance(DistanceUnit.CM);
 
-            case OFF:
-                // Sensor apagado, no medimos distancia
-                // Motores no se tocan aquí para que otra lógica los controle
-                break;
+                    if (distancerope < 5) {
+                        hangingCore.setPower(1);
+                        hanging.setPower(1);
+                    } else {
+                        hangingCore.setPower(0);
+                        hanging.setPower(0);
+                    }
+                    break;
+
+                case OFF:
+                    // Sensor apagado, no medimos distancia
+                    // Motores no se tocan aquí para que otra lógica los controle
+                    break;
+            }
         }
     }
 }
+
