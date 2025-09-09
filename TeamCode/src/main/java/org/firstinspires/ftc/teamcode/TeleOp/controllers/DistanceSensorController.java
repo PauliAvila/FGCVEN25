@@ -37,7 +37,7 @@ public class DistanceSensorController {
                 case ON:
                     distancerope = distance.getDistance(DistanceUnit.CM);
 
-                    if (distancerope < 5) {
+                    if (distancerope < 15) {
                         hangingCore.setPower(1);
                         hanging.setPower(1);
                     } else {

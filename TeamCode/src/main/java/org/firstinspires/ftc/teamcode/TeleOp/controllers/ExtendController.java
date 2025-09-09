@@ -19,7 +19,7 @@ public class ExtendController {
     public liftStatus previousStatus = null;
 
     public static DcMotorEx rightExtend = null;
-    public static DcMotorEx leftExtend = null;
+
 
     public int init_position = 0;
     public int collect_position = 2000;
@@ -31,7 +31,7 @@ public class ExtendController {
 
     public ExtendController(RobotMap robot) {
         rightExtend = robot.rightExtend;
-        leftExtend = robot.leftExtend;
+
     }
 
     public void update(int target) {
@@ -46,9 +46,7 @@ public class ExtendController {
                     rightExtend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     rightExtend.setVelocity(rightLiftSpeed);
 
-                    leftExtend.setTargetPosition(init_position);
-                    leftExtend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    leftExtend.setVelocity(leftLiftSpeed);
+
 
                     currentPosition = init_position;
                     break;
@@ -56,8 +54,7 @@ public class ExtendController {
                 case POWEROFF:
                     rightExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     rightExtend.setPower(0);
-                    leftExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    leftExtend.setPower(0);
+
                     break;
 
                 case  COLLECT:
@@ -65,9 +62,6 @@ public class ExtendController {
                     rightExtend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     rightExtend.setVelocity(rightLiftSpeed);
 
-                   leftExtend.setTargetPosition(collect_position);
-                   leftExtend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                   leftExtend.setVelocity(leftLiftSpeed);
 
                     currentPosition = collect_position;
                     break;

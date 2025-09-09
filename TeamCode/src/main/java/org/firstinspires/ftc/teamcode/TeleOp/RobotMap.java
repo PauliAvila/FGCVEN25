@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 public class RobotMap {
 
-    public DcMotorEx leftExtend;
+    public DcMotorEx Accelerator;
     public DcMotorEx rightExtend;
 
     public DcMotorEx intake;
@@ -31,11 +31,11 @@ public class RobotMap {
     public RobotMap(HardwareMap Init)
     {
         //EXTENDERS
-        leftExtend=Init.get(DcMotorEx.class,"leftExtend");
-        leftExtend.setDirection(DcMotor.Direction.REVERSE);
-        leftExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Accelerator=Init.get(DcMotorEx.class,"Accelerator");
+        Accelerator.setDirection(DcMotor.Direction.REVERSE);
+        Accelerator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Accelerator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Accelerator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         rightExtend=Init.get(DcMotorEx.class,"rightExtend");
         rightExtend.setDirection(DcMotor.Direction.FORWARD);

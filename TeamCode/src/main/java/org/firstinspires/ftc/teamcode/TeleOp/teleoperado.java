@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.DistanceSensorController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.AcceleratorController;
 
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
@@ -64,6 +65,10 @@ public class teleoperado extends LinearOpMode {
         distanceSensorController = new DistanceSensorController(robot);
         distanceSensorController.update();
 
+        AcceleratorController acceleratorController;
+        acceleratorController = new AcceleratorController(robot);
+        acceleratorController.update();
+
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -83,6 +88,7 @@ public class teleoperado extends LinearOpMode {
         IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
         HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
         FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
+
 
 
 
@@ -109,6 +115,16 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+
+            //ACCELERATOR
+            if (currentGamepad2.dpad_right && !previousGamepad2.dpad_right) {
+                if (AcceleratorController.currentStatus == AcceleratorController.acceleratorStatus.OFF) {
+                    AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.ACCELERATE;
+                }
+                else {
+                    AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.OFF;
+                }
+            }
 
             //INTAKE
             if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
@@ -159,7 +175,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (distancerope < 5){
+            if (distancerope < 15){
                 if (DistanceSensorController.currentStatus == DistanceSensorController.distanceSensorStatus.ON){
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
 
@@ -224,14 +240,12 @@ public class teleoperado extends LinearOpMode {
             funnelController.update();
             rampController.update();
             distanceSensorController.update();
+            acceleratorController.update();
 
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime);
-            telemetry.addData("leftExtend", ExtendController.rightExtend.getCurrentPosition());
-            telemetry.addData("rightExtend", ExtendController.leftExtend.getCurrentPosition());
             telemetry.addData("rightExtend speed", ExtendController.rightExtend.getVelocity());
-            telemetry.addData("leftExtend speed", ExtendController.leftExtend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
             telemetry.addData("Hanging Status", HangingController.currentStatus);
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
@@ -240,6 +254,7 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Funnel Status", FunnelController.currentStatus);
             telemetry.addData("Distance Status", DistanceSensorController.currentStatus);
             telemetry.addData("Distance", DistanceSensorController.distance.getDistance(DistanceUnit.CM));
+            telemetry.addData("Accelerator Status", AcceleratorController.currentStatus);
 
             telemetry.update();
         }
