@@ -19,9 +19,9 @@ public class RobotMap {
     public DcMotorEx hanging;
     public DcMotorEx hangingCore;
 
-    public Servo leftRamp;
-    public Servo rightRamp;
-
+    public DcMotorEx Ramp;
+    public Servo hugleftservo;
+    public Servo hugrightservo;
     public Servo rightFunnel;
     public Servo leftFunnel;
 
@@ -31,6 +31,12 @@ public class RobotMap {
     public RobotMap(HardwareMap Init)
     {
         //EXTENDERS
+        Ramp=Init.get(DcMotorEx.class,"Ramp");
+        Ramp.setDirection(DcMotor.Direction.REVERSE);
+        Ramp.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Ramp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Ramp.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         Accelerator=Init.get(DcMotorEx.class,"Accelerator");
         Accelerator.setDirection(DcMotor.Direction.REVERSE);
         Accelerator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -63,9 +69,7 @@ public class RobotMap {
         hangingCore.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         hangingCore.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        //RAMP
-        rightRamp=Init.get(Servo.class,"rightRamp");
-        leftRamp=Init.get(Servo.class,"leftRamp");
+
 
         //FUNNEL
         rightFunnel=Init.get(Servo.class,"rightFunnel");
@@ -73,6 +77,10 @@ public class RobotMap {
 
         //DISTANCE SENSOR
         distance=Init.get(DistanceSensor.class, "distance");
+
+        hugleftservo=Init.get(Servo.class,"hugleftservo");
+        hugrightservo=Init.get(Servo.class,"hugrightservo");
+
 
     }
 }

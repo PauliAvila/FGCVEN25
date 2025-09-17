@@ -10,6 +10,7 @@ public class  FunnelController{
     public enum FunnelStatus {
         INIT,
         HIGH,
+        MEDIUM,
 
     }
 
@@ -19,7 +20,8 @@ public class  FunnelController{
     public Servo leftFunnel = null;
     public Servo rightFunnel = null;
 
-    public static double init_position = 0.15;
+    public static double init_position = 0.25;
+    public static double medium_position = 0.70;
     public static double high_position = 0.9;
 
     public double currentPosition = init_position;
@@ -45,6 +47,12 @@ public class  FunnelController{
                     leftFunnel.setPosition(high_position);
                     rightFunnel.setPosition(1-high_position);
                     currentPosition = high_position;
+                    break;
+                }
+                case MEDIUM: {
+                    leftFunnel.setPosition(medium_position);
+                    rightFunnel.setPosition(1-medium_position);
+                    currentPosition = medium_position;
                     break;
                 }
 

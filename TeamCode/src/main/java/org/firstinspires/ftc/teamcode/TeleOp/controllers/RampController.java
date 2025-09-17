@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 
@@ -16,23 +17,19 @@ public class RampController {
     public static RampStatus currentStatus = RampStatus.INIT;
     public RampStatus previousStatus = null;
 
-    public Servo leftRamp = null;
-    public Servo rightRamp = null;
+    public DcMotorEx Ramp = null;
 
-    public static double init_position;
-    public static double high_position ;
+    public int init_position = 0;
+    public static int high_position = 50;
+    public static int rampspeed = 2000;
 
-    public static double init_positionR = 0.15;
-    public static double init_positionL = 0.15;
-    public static double high_positionL = 0.55;
-    public static double high_positionR = 0.55 ;
+
 
 
     public double currentPosition = init_position;
 
     public RampController (RobotMap robot) {
-        this.leftRamp = robot.leftRamp;
-        this.rightRamp = robot.rightRamp;
+        this.Ramp = robot.Ramp;
 
     }
 
@@ -42,15 +39,18 @@ public class RampController {
 
             switch (currentStatus) {
                 case INIT: {
-                    leftRamp.setPosition(init_positionL);
-                    rightRamp.setPosition(1-init_positionR);
+                    Ramp.setTargetPosition(init_position);
+                    Ramp.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                    Ramp.setVelocity(rampspeed);
+
                     currentPosition = init_position;
                     break;
                 }
 
                 case HIGH: {
-                    leftRamp.setPosition(high_positionL);
-                    rightRamp.setPosition(1-high_positionR);
+                    Ramp.setTargetPosition(high_position);
+                    Ramp.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                    Ramp.setVelocity(rampspeed);
                     currentPosition = high_position;
                     break;
                 }

@@ -12,10 +12,11 @@ public class AcceleratorController {
     public enum acceleratorStatus {
         ACCELERATE,
         OFF,
+        DESACCELERATE
 
     }
 
-    public static acceleratorStatus currentStatus = acceleratorStatus.ACCELERATE;
+    public static acceleratorStatus currentStatus = acceleratorStatus.OFF;
     public acceleratorStatus previousStatus = null;
     public static DcMotorEx Accelerator = null ;
 
@@ -38,6 +39,10 @@ public class AcceleratorController {
 
                 case OFF:
                     Accelerator.setPower(0);
+                    break;
+
+                case DESACCELERATE:
+                    Accelerator.setPower(-1);
                     break;
 
 
