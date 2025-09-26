@@ -17,11 +17,15 @@ public class RampController {
     public static RampStatus currentStatus = RampStatus.INIT;
     public RampStatus previousStatus = null;
 
-    public DcMotorEx Ramp = null;
+    public Servo leftramp = null;
+    public Servo rightramp = null;
 
-    public int init_position = 0;
-    public static int high_position = 50;
-    public static int rampspeed = 2000;
+    public  static double init_positionR = 1;
+    public  static double init_positionL = 1;
+    public static double high_positionR = 0.4;
+    public static double high_positionL = 0.4;
+    public  static double init_position ;
+    public  static double high_position ;
 
 
 
@@ -29,7 +33,8 @@ public class RampController {
     public double currentPosition = init_position;
 
     public RampController (RobotMap robot) {
-        this.Ramp = robot.Ramp;
+        this.rightramp =  robot.rightramp;
+        this.leftramp =  robot.leftramp;
 
     }
 
@@ -39,18 +44,15 @@ public class RampController {
 
             switch (currentStatus) {
                 case INIT: {
-                    Ramp.setTargetPosition(init_position);
-                    Ramp.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    Ramp.setVelocity(rampspeed);
-
+                    rightramp.setPosition(init_positionR);
+                    leftramp.setPosition(1-init_positionL);
                     currentPosition = init_position;
                     break;
                 }
 
                 case HIGH: {
-                    Ramp.setTargetPosition(high_position);
-                    Ramp.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    Ramp.setVelocity(rampspeed);
+                    rightramp.setPosition(high_positionR);
+                    leftramp.setPosition(1-high_positionL);
                     currentPosition = high_position;
                     break;
                 }

@@ -18,25 +18,25 @@ public class HugController {
 
     }
 
-    public static hugStatus currentStatus = hugStatus.INIT;
+    public static hugStatus currentStatus = hugStatus.CLOSED;
     public hugStatus previousStatus = null;
 
     public Servo hugleftservo = null;
     public Servo hugrightservo = null;
 
 
-    public static double init_positionL = 0.84;
-    public static double init_positionR = 0.87;
-    public static double straight_positionL = 0.3;
+    public static double init_positionL = 0.9;
+    public static double init_positionR =0.87;
+    public static double straight_positionL = 0.35;
     public static double straight_positionR = 0.32;
-    public static double closed_positionL =  0;
-    public static double closed_positionR =  0.01;
-    public static double left_flow_positionL =  0.3;
-    public static double left_flow_positionR =  0.1;
-    public static double right_flow_positionL =  0;
+    public static double closed_positionL =  0.95;
+    public static double closed_positionR =  0.91;
+    public static double left_flow_positionL =  0.4;
+    public static double left_flow_positionR =  0.05;
+    public static double right_flow_positionL =  0.1;
     public static double right_flow_positionR =  0.3;
-    public static double hug_positionL =  0.06;
-    public static double hug_positionR =  0.08;
+    public static double hug_positionL =  0.15;
+    public static double hug_positionR =  0.1;
 
 
 

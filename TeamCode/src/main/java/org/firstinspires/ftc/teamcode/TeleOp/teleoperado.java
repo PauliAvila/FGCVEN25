@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -24,8 +25,12 @@ public class teleoperado extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private final ElapsedTime runtime = new ElapsedTime();
+    private final ElapsedTime hugTimer = new ElapsedTime();
+
+
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+
     private double distancerope;
 
     @Override
@@ -95,7 +100,7 @@ public class teleoperado extends LinearOpMode {
         HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
         FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
         AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.OFF;
-        HugController.currentStatus = HugController.hugStatus.INIT;
+        HugController.currentStatus = HugController.hugStatus.CLOSED;
 
 
 
@@ -194,13 +199,14 @@ public class teleoperado extends LinearOpMode {
             }
 
             //RAMP
-            if (currentGamepad2.triangle && !previousGamepad2.triangle) {
+
+               if (currentGamepad2.triangle && !previousGamepad2.triangle) {
                 if (RampController.currentStatus == RampController.RampStatus.INIT) {
                     RampController.currentStatus = RampController.RampStatus.HIGH;
                 } else {
                     RampController.currentStatus = RampController.RampStatus.INIT;
                 }
-            }
+               }
 
 
             //FUNNEL
@@ -218,14 +224,20 @@ public class teleoperado extends LinearOpMode {
             //HUG
 
             if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
-                if (HugController.currentStatus == HugController.hugStatus.INIT) {
+                if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT){
                     HugController.currentStatus = HugController.hugStatus.HUG;
                 } else {
                     HugController.currentStatus = HugController.hugStatus.INIT;
+                    hugTimer.reset();
 
                 }
+            }
+
+            if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 2) {
+                HugController.currentStatus = HugController.hugStatus.CLOSED;
+
             }
 
 
@@ -285,6 +297,7 @@ public class teleoperado extends LinearOpMode {
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime);
             telemetry.addData("rightExtend speed", ExtendController.rightExtend.getVelocity());
+            telemetry.addData("Extend Status", ExtendController.currentStatus);
             telemetry.addData("Intake Status", IntakeController.currentStatus);
             telemetry.addData("Hanging Status", HangingController.currentStatus);
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
@@ -295,9 +308,12 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Distance", DistanceSensorController.distance.getDistance(DistanceUnit.CM));
             telemetry.addData("Accelerator Status", AcceleratorController.currentStatus);
             telemetry.addData("Hug Status", HugController.currentStatus);
+            telemetry.addData("hugtimer", hugTimer.seconds());
 
             telemetry.update();
         }
     }
 }
+
+
 
