@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.TeleOp.controllers;
+package org.firstinspires.ftc.teamcode.TeleOp.controllers.teamcode.TeleOp.controllers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.teamcode.TeleOp.RobotMap;
 
 @Config
 public class ExtendController {
@@ -30,7 +30,7 @@ public class ExtendController {
     public int currentPosition = init_position;
 
     public ExtendController(RobotMap robot) {
-        rightExtend = robot.Extend;
+        rightExtend = robot.rightExtend;
 
     }
 

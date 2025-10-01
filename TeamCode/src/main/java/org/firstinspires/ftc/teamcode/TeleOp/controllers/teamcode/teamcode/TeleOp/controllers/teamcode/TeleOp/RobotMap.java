@@ -1,20 +1,20 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.controllers.teamcode.teamcode.TeleOp.controllers.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 public class RobotMap {
 
     public DcMotorEx Accelerator;
-    public DcMotorEx Extend;
+    public DcMotorEx rightExtend;
 
     public DcMotorEx intake;
 
-    public DcMotorEx hangingright;
-    public DcMotorEx hangingleft;
+    public DcMotorEx hanging;
+    public DcMotorEx hangingCore;
 
 
     public Servo hugleftservo;
@@ -38,11 +38,11 @@ public class RobotMap {
         Accelerator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Accelerator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        Extend =Init.get(DcMotorEx.class,"Extend");
-        Extend.setDirection(DcMotor.Direction.FORWARD);
-        Extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Extend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightExtend=Init.get(DcMotorEx.class,"rightExtend");
+        rightExtend.setDirection(DcMotor.Direction.FORWARD);
+        rightExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightExtend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //INTAKE
         intake=Init.get(DcMotorEx.class,"intake");
@@ -52,17 +52,17 @@ public class RobotMap {
         intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //HANGING
-        hangingright =Init.get(DcMotorEx.class,"hangingright");
-        hangingright.setDirection(DcMotor.Direction.REVERSE);
-        hangingright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hangingright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        hangingright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hanging=Init.get(DcMotorEx.class,"hanging");
+        hanging.setDirection(DcMotor.Direction.REVERSE);
+        hanging.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hanging.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hanging.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        hangingleft =Init.get(DcMotorEx.class, "hangingleft");
-        hangingleft.setDirection(DcMotorEx.Direction.FORWARD);
-        hangingleft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        hangingleft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        hangingleft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        hangingCore=Init.get(DcMotorEx.class, "hangingCore");
+        hangingCore.setDirection(DcMotorEx.Direction.FORWARD);
+        hangingCore.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        hangingCore.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        hangingCore.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
 

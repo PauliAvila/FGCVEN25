@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.TeleOp.controllers;
+package org.firstinspires.ftc.teamcode.TeleOp.controllers.teamcode.teamcode.TeleOp.controllers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.teamcode.teamcode.TeleOp.RobotMap;
 
 @Config
 public class HangingController {
@@ -23,8 +23,8 @@ public class HangingController {
 
 
     public HangingController(RobotMap robot) {
-        hanging = robot.hangingright;
-        hangingCore = robot.hangingleft;
+        hanging = robot.hanging;
+        hangingCore = robot.hangingCore;
     }
 
     public void update(int target) {
