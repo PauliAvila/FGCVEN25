@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 
 @Config
@@ -11,7 +12,6 @@ public class  FunnelController{
         INIT,
         HIGH,
         MEDIUM,
-
     }
 
     public static FunnelStatus currentStatus = FunnelStatus.INIT;

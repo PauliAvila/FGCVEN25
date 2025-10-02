@@ -11,7 +11,6 @@ public class HangingController {
         HANG,
         POWEROFF,
         UNHANG,
-
     }
 
     public static hangingStatus currentStatus = hangingStatus.POWEROFF;
@@ -36,7 +35,6 @@ public class HangingController {
                 case HANG:
                     hanging.setPower(1);
                     hangingCore.setPower(1);
-
                     hangingCore.setPower(1);
                     break;
 

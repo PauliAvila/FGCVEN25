@@ -12,7 +12,6 @@ public class ExtendController {
         INIT,
         POWEROFF,
         COLLECT,
-
     }
 
     public static liftStatus currentStatus = liftStatus.INIT;
@@ -22,7 +21,7 @@ public class ExtendController {
 
 
     public int init_position = 0;
-    public static int collect_position = 1500;
+    public static int collect_position = 2140;
 
     public static int rightLiftSpeed = 2500;
     public static int leftLiftSpeed = 2500;
@@ -31,7 +30,6 @@ public class ExtendController {
 
     public ExtendController(RobotMap robot) {
         rightExtend = robot.Extend;
-
     }
 
     public void update(int target) {
@@ -46,15 +44,12 @@ public class ExtendController {
                     rightExtend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     rightExtend.setVelocity(rightLiftSpeed);
 
-
-
                     currentPosition = init_position;
                     break;
 
                 case POWEROFF:
                     rightExtend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     rightExtend.setPower(0);
-
                     break;
 
                 case  COLLECT:
@@ -62,10 +57,8 @@ public class ExtendController {
                     rightExtend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     rightExtend.setVelocity(rightLiftSpeed);
 
-
                     currentPosition = collect_position;
                     break;
-
             }
         }
     }

@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 
 @Config
@@ -11,7 +11,6 @@ public class RampController {
     public enum RampStatus {
         INIT,
         HIGH,
-
     }
 
     public static RampStatus currentStatus = RampStatus.INIT;
@@ -26,8 +25,6 @@ public class RampController {
     public static double high_positionL = 0.4;
     public  static double init_position ;
     public  static double high_position ;
-
-
 
 
     public double currentPosition = init_position;
@@ -56,7 +53,6 @@ public class RampController {
                     currentPosition = high_position;
                     break;
                 }
-
                 }
             }
         }

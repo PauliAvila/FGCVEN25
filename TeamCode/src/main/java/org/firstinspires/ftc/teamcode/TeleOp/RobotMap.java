@@ -2,9 +2,12 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+
 
 public class RobotMap {
 
@@ -30,14 +33,14 @@ public class RobotMap {
 
     public RobotMap(HardwareMap Init)
     {
-
-
+        //ACCELERATOR
         Accelerator=Init.get(DcMotorEx.class,"Accelerator");
         Accelerator.setDirection(DcMotor.Direction.REVERSE);
         Accelerator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Accelerator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Accelerator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //EXTENSION
         Extend =Init.get(DcMotorEx.class,"Extend");
         Extend.setDirection(DcMotor.Direction.FORWARD);
         Extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -52,8 +55,18 @@ public class RobotMap {
         intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //HANGING
+        //overclocking chassis motors
+        MotorConfigurationType mct1, mct2;
+        mct1 = hangingright.getMotorType().clone();
+        mct1.setAchieveableMaxRPMFraction(1.0);
+        hangingright.setMotorType(mct1);
+
+        mct2 = hangingleft.getMotorType().clone();
+        mct2.setAchieveableMaxRPMFraction(1.0);
+        hangingleft.setMotorType(mct2);
+
         hangingright =Init.get(DcMotorEx.class,"hangingright");
-        hangingright.setDirection(DcMotor.Direction.REVERSE);
+        hangingright.setDirection(DcMotor.Direction.FORWARD);
         hangingright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hangingright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hangingright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -64,8 +77,6 @@ public class RobotMap {
         hangingleft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         hangingleft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-
-
         //FUNNEL
         rightFunnel=Init.get(Servo.class,"rightFunnel");
         leftFunnel=Init.get(Servo.class,"leftFunnel");
@@ -73,14 +84,13 @@ public class RobotMap {
         //DISTANCE SENSOR
         distance=Init.get(DistanceSensor.class, "distance");
 
+        //HUG
         hugleftservo=Init.get(Servo.class,"hugleftservo");
         hugrightservo=Init.get(Servo.class,"hugrightservo");
 
         //RAMP
         rightramp=Init.get(Servo.class,"rightramp");
         leftramp=Init.get(Servo.class,"leftramp");
-
-
 
     }
 }

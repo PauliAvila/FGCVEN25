@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 
 @Config
@@ -14,8 +15,6 @@ public class HugController {
         LEFT_FLOW,
         RIGHT_FLOW,
         STRAIGHT,
-
-
     }
 
     public static hugStatus currentStatus = hugStatus.CLOSED;
@@ -23,7 +22,6 @@ public class HugController {
 
     public Servo hugleftservo = null;
     public Servo hugrightservo = null;
-
 
     public static double init_positionL = 0.9;
     public static double init_positionR =0.87;
@@ -37,7 +35,6 @@ public class HugController {
     public static double right_flow_positionR =  0.3;
     public static double hug_positionL =  0.15;
     public static double hug_positionR =  0.1;
-
 
 
     public double currentPosition = init_positionL;

@@ -5,19 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.AcceleratorController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.DistanceSensorController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.ExtendController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.FunnelController;
-import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
-import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
-import org.firstinspires.ftc.teamcode.TeleOp.controllers.DistanceSensorController;
-import org.firstinspires.ftc.teamcode.TeleOp.controllers.AcceleratorController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HugController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
+import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
 
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
@@ -116,21 +115,21 @@ public class teleoperado extends LinearOpMode {
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
 
             if (currentGamepad2.cross && !previousGamepad2.cross) {
-                if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
+                if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF) {
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
 
                 } else if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.INIT;
 
 
-                } else if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF) {
-                    ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
+                } else if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
+                    ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
                 }
             }
 
 
             //ACCELERATOR
-            if (currentGamepad2.right_stick_button && !previousGamepad2.right_stick_button) {
+            if (currentGamepad1.dpad_up && !previousGamepad1.dpad_up) {
                 if (AcceleratorController.currentStatus == AcceleratorController.acceleratorStatus.OFF) {
                     AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.ACCELERATE;
                 } else {
@@ -138,7 +137,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad2.left_stick_button && !previousGamepad2.left_stick_button) {
+            if (currentGamepad1.dpad_down && !previousGamepad1.dpad_down) {
                 if (AcceleratorController.currentStatus == AcceleratorController.acceleratorStatus.OFF) {
                     AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.DESACCELERATE;
                 } else {
@@ -165,7 +164,7 @@ public class teleoperado extends LinearOpMode {
 
 
             //HANGING
-            if (currentGamepad2.dpad_up && !previousGamepad2.dpad_up) {
+            if (currentGamepad2.triangle && !previousGamepad2.triangle) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
                 } else {
@@ -173,7 +172,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad2.dpad_down && !previousGamepad2.dpad_down) {
+            if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.UNHANG;
                 } else {
@@ -210,7 +209,7 @@ public class teleoperado extends LinearOpMode {
 
 
             //FUNNEL
-            if (currentGamepad2.square && !previousGamepad2.square) {
+            if (currentGamepad1.dpad_up && !previousGamepad1.dpad_up) {
                 if (FunnelController.currentStatus == FunnelController.FunnelStatus.INIT) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
                 } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.HIGH){
@@ -223,7 +222,7 @@ public class teleoperado extends LinearOpMode {
 
             //HUG
 
-            if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
+           /* if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
                 if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT){
@@ -254,18 +253,14 @@ public class teleoperado extends LinearOpMode {
                 } else {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 }
-            }
+            }*/
 
             //DRIVETRAIN
             //Uses left joystick to go forward & strafe, and right joystick to rotate.
-            double drivePower = gamepad1.left_stick_y;
-
-            // Joystick derecho X para girar
-            double turnPower = -gamepad1.right_stick_x;
 
             // --- CÁLCULO DE POTENCIA PARA CADA MOTOR ---
-            double leftMotorPower = drivePower + turnPower;
-            double rightMotorPower = drivePower - turnPower;
+            double leftMotorPower = gamepad1.left_stick_y;
+            double rightMotorPower = gamepad1.right_stick_y;
 
             // --- NORMALIZACIÓN/RECORTE DE POTENCIA ---
             // Asegura que la potencia no exceda +/- 1.0
@@ -309,7 +304,9 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Accelerator Status", AcceleratorController.currentStatus);
             telemetry.addData("Hug Status", HugController.currentStatus);
             telemetry.addData("hugtimer", hugTimer.seconds());
-
+            telemetry.addData("Hug Angle Left", hugController.hugleftservo.getPosition());
+            telemetry.addData("Hug Angle Right", hugController.hugrightservo.getPosition());
+            
             telemetry.update();
         }
     }

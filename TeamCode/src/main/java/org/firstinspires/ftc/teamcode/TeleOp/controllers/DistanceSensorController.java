@@ -28,7 +28,7 @@ public class DistanceSensorController {
     }
 
     public void update() {
-         // Guardará la medición
+         // Saves measurements
 
         if (currentStatus != previousStatus) {
             previousStatus = currentStatus;

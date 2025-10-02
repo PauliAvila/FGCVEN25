@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
-import static org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController.hangingCore;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -13,7 +11,6 @@ public class AcceleratorController {
         ACCELERATE,
         OFF,
         DESACCELERATE
-
     }
 
     public static acceleratorStatus currentStatus = acceleratorStatus.OFF;
