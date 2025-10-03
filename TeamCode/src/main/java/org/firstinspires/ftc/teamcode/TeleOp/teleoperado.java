@@ -114,13 +114,18 @@ public class teleoperado extends LinearOpMode {
 
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
 
+
+            //extend
             if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF) {
+                    HugController.currentStatus = HugController.hugStatus.INIT;
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
-
-                } else if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT) {
+                    hugTimer.reset();
+                }
+                else if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.INIT;
-
+                    HugController.currentStatus = HugController.hugStatus.INIT;
+                    hugTimer.reset();
 
                 } else if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
@@ -129,7 +134,7 @@ public class teleoperado extends LinearOpMode {
 
 
             //ACCELERATOR
-            if (currentGamepad1.dpad_up && !previousGamepad1.dpad_up) {
+            if (currentGamepad1.triangle && !previousGamepad1.triangle) {
                 if (AcceleratorController.currentStatus == AcceleratorController.acceleratorStatus.OFF) {
                     AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.ACCELERATE;
                 } else {
@@ -137,7 +142,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad1.dpad_down && !previousGamepad1.dpad_down) {
+            if (currentGamepad1.cross && !previousGamepad1.cross) {
                 if (AcceleratorController.currentStatus == AcceleratorController.acceleratorStatus.OFF) {
                     AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.DESACCELERATE;
                 } else {
@@ -164,7 +169,7 @@ public class teleoperado extends LinearOpMode {
 
 
             //HANGING
-            if (currentGamepad2.triangle && !previousGamepad2.triangle) {
+            if (currentGamepad2.dpad_up && !previousGamepad2.dpad_up) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.HANG;
                 } else {
@@ -172,7 +177,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (currentGamepad2.cross && !previousGamepad2.cross) {
+            if (currentGamepad2.dpad_down && !previousGamepad2.dpad_down) {
                 if (HangingController.currentStatus == HangingController.hangingStatus.POWEROFF) {
                     HangingController.currentStatus = HangingController.hangingStatus.UNHANG;
                 } else {
@@ -222,7 +227,7 @@ public class teleoperado extends LinearOpMode {
 
             //HUG
 
-           /* if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
+           if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
                 if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT){
@@ -234,7 +239,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 2) {
+            if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 3) {
                 HugController.currentStatus = HugController.hugStatus.CLOSED;
 
             }
@@ -253,7 +258,7 @@ public class teleoperado extends LinearOpMode {
                 } else {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 }
-            }*/
+            }
 
             //DRIVETRAIN
             //Uses left joystick to go forward & strafe, and right joystick to rotate.
@@ -306,7 +311,9 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("hugtimer", hugTimer.seconds());
             telemetry.addData("Hug Angle Left", hugController.hugleftservo.getPosition());
             telemetry.addData("Hug Angle Right", hugController.hugrightservo.getPosition());
-            
+            telemetry.addData("extendR", ExtendController.rightExtend.getCurrentPosition());
+
+
             telemetry.update();
         }
     }

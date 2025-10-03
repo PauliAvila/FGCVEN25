@@ -56,15 +56,6 @@ public class RobotMap {
 
         //HANGING
         //overclocking chassis motors
-        MotorConfigurationType mct1, mct2;
-        mct1 = hangingright.getMotorType().clone();
-        mct1.setAchieveableMaxRPMFraction(1.0);
-        hangingright.setMotorType(mct1);
-
-        mct2 = hangingleft.getMotorType().clone();
-        mct2.setAchieveableMaxRPMFraction(1.0);
-        hangingleft.setMotorType(mct2);
-
         hangingright =Init.get(DcMotorEx.class,"hangingright");
         hangingright.setDirection(DcMotor.Direction.FORWARD);
         hangingright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
