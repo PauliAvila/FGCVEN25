@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -32,6 +33,7 @@ public class teleoperado extends LinearOpMode {
 
     private double distancerope;
 
+
     @Override
     public void runOpMode() {
         RobotMap robot = new RobotMap(hardwareMap);
@@ -42,6 +44,7 @@ public class teleoperado extends LinearOpMode {
 
         rightDrive=hardwareMap.get(DcMotorEx.class,"rightDrive");
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+
 
 
         //CONTROLLERS
@@ -124,6 +127,10 @@ public class teleoperado extends LinearOpMode {
                 HugController.currentStatus = HugController.hugStatus.INIT;
                 hugTimer.reset();
             }
+
+
+
+
             //extend
             /*if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF) {

@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 
@@ -28,11 +31,19 @@ public class RobotMap {
     public Servo leftramp;
     public Servo rightramp;
 
+    public TouchSensor left_magnetic;
+    public TouchSensor right_magnetic;
+
     public DistanceSensor distance;
 
 
     public RobotMap(HardwareMap Init)
     {
+
+        //SENSORES MAGNETICOS
+        left_magnetic = hardwareMap.get(TouchSensor.class, "left_magnetic");
+        right_magnetic = hardwareMap.get(TouchSensor.class, "right_magnetic");
+
         //ACCELERATOR
         Accelerator=Init.get(DcMotorEx.class,"Accelerator");
         Accelerator.setDirection(DcMotor.Direction.REVERSE);

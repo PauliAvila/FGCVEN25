@@ -25,6 +25,7 @@ public class DistanceSensorController {
 
     public DistanceSensorController(RobotMap robot) {
         distance = robot.distance;
+
     }
 
     public void update() {

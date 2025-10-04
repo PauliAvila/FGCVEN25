@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 
@@ -20,6 +21,12 @@ public class ExtendController {
 
     public static DcMotorEx Extend = null;
 
+    public static TouchSensor rightmagnetic = null;
+    public static TouchSensor leftmagnetic = null;
+
+
+
+
 
     public int init_position = 0;
     public static int collect_position = 2140;
@@ -31,9 +38,14 @@ public class ExtendController {
 
     public ExtendController(RobotMap robot) {
         Extend = robot.Extend;
+        rightmagnetic = robot.right_magnetic;
+        leftmagnetic = robot.left_magnetic;
+
+
     }
 
     public void update(int target) {
+
         // Si el estado ha cambiado
         double extendPower = gamepad2.left_stick_y;
 
