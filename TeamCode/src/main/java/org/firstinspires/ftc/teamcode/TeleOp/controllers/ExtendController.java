@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
+
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
@@ -17,7 +18,7 @@ public class ExtendController {
     public static liftStatus currentStatus = liftStatus.INIT;
     public liftStatus previousStatus = null;
 
-    public static DcMotorEx rightExtend = null;
+    public static DcMotorEx Extend = null;
 
 
     public int init_position = 0;
@@ -29,12 +30,19 @@ public class ExtendController {
     public int currentPosition = init_position;
 
     public ExtendController(RobotMap robot) {
-        rightExtend = robot.Extend;
+        Extend = robot.Extend;
     }
 
     public void update(int target) {
         // Si el estado ha cambiado
-        if (currentStatus != previousStatus) {
+        double extendPower = gamepad2.left_stick_y;
+
+        if (Extend != null) {
+            Extend.setPower(extendPower);
+        }
+
+
+        /*if (currentStatus != previousStatus) {
             previousStatus = currentStatus;
 
             switch (currentStatus) {
@@ -59,7 +67,6 @@ public class ExtendController {
 
                     currentPosition = collect_position;
                     break;
-            }
+            }*/
         }
     }
-}

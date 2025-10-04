@@ -114,9 +114,18 @@ public class teleoperado extends LinearOpMode {
 
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
 
+           double extendDistance = ExtendController.Extend.getCurrentPosition();
 
+            //HUG WITH EXTEND
+            if (extendDistance < 50){
+                HugController.currentStatus = HugController.hugStatus.INIT;
+                hugTimer.reset();
+            } else if (extendDistance < 1900) {
+                HugController.currentStatus = HugController.hugStatus.INIT;
+                hugTimer.reset();
+            }
             //extend
-            if (currentGamepad2.cross && !previousGamepad2.cross) {
+            /*if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF) {
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
@@ -130,7 +139,7 @@ public class teleoperado extends LinearOpMode {
                 } else if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
                 }
-            }
+            }*/
 
 
             //ACCELERATOR
@@ -260,21 +269,17 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+
             //DRIVETRAIN
             //Uses left joystick to go forward & strafe, and right joystick to rotate.
+            double drivePower = gamepad1.left_stick_y;
+
+            // Joystick derecho X para girar
+            double turnPower = -gamepad1.right_stick_x;
 
             // --- CÁLCULO DE POTENCIA PARA CADA MOTOR ---
-            double leftMotorPower = gamepad1.left_stick_y;
-            double rightMotorPower = gamepad1.right_stick_y;
-
-            // --- NORMALIZACIÓN/RECORTE DE POTENCIA ---
-            // Asegura que la potencia no exceda +/- 1.0
-            // Opción 1: Normalización si alguna potencia excede 1.0
-            double max = Math.max(Math.abs(leftMotorPower), Math.abs(rightMotorPower));
-            if (max > 1.0) {
-                leftMotorPower /= max;
-                rightMotorPower /= max;
-            }
+            double leftMotorPower = drivePower + turnPower;
+            double rightMotorPower = drivePower - turnPower;
 
             // --- APLICAR POTENCIA A LOS MOTORES ---
             if (leftDrive != null) {
@@ -296,8 +301,7 @@ public class teleoperado extends LinearOpMode {
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime);
-            telemetry.addData("rightExtend speed", ExtendController.rightExtend.getVelocity());
-            telemetry.addData("Extend Status", ExtendController.currentStatus);
+            telemetry.addData("rightExtend speed", ExtendController.Extend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
             telemetry.addData("Hanging Status", HangingController.currentStatus);
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());
@@ -311,7 +315,7 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("hugtimer", hugTimer.seconds());
             telemetry.addData("Hug Angle Left", hugController.hugleftservo.getPosition());
             telemetry.addData("Hug Angle Right", hugController.hugrightservo.getPosition());
-            telemetry.addData("extendR", ExtendController.rightExtend.getCurrentPosition());
+            telemetry.addData("extendDistance", ExtendController.Extend.getCurrentPosition());
 
 
             telemetry.update();

@@ -20,9 +20,9 @@ public class  FunnelController{
     public Servo leftFunnel = null;
     public Servo rightFunnel = null;
 
-    public static double init_position = 0.25;
-    public static double medium_position = 0.5;
-    public static double high_position = 0.8;
+    public static double init_position = 0.8;
+    public static double medium_position = 0.6;
+    public static double high_position = 0.25;
 
     public double currentPosition = init_position;
 

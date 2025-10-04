@@ -57,13 +57,13 @@ public class RobotMap {
         //HANGING
         //overclocking chassis motors
         hangingright =Init.get(DcMotorEx.class,"hangingright");
-        hangingright.setDirection(DcMotor.Direction.FORWARD);
+        hangingright.setDirection(DcMotor.Direction.REVERSE);
         hangingright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         hangingright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hangingright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         hangingleft =Init.get(DcMotorEx.class, "hangingleft");
-        hangingleft.setDirection(DcMotorEx.Direction.FORWARD);
+        hangingleft.setDirection(DcMotorEx.Direction.REVERSE);
         hangingleft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         hangingleft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         hangingleft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
