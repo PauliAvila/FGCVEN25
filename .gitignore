@@ -79,3 +79,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# Documentation and GitHub workflow folders
+doc/
+.github/
