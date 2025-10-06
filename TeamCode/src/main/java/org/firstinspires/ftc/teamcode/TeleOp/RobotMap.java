@@ -16,9 +16,7 @@ public class RobotMap {
 
     public DcMotorEx Accelerator;
     public DcMotorEx Extend;
-
     public DcMotorEx intake;
-
     public DcMotorEx hangingright;
     public DcMotorEx hangingleft;
 
@@ -27,12 +25,14 @@ public class RobotMap {
     public Servo hugrightservo;
     public Servo rightFunnel;
     public Servo leftFunnel;
-
     public Servo leftramp;
     public Servo rightramp;
 
 
     public DistanceSensor distance;
+    public TouchSensor rightMagnetic;
+    public TouchSensor leftMagnetic;
+
 
 
     public RobotMap(HardwareMap Init)
@@ -81,6 +81,10 @@ public class RobotMap {
 
         //DISTANCE SENSOR
         distance=Init.get(DistanceSensor.class, "distance");
+
+        //MAGNETIC SENSORS
+        rightMagnetic = Init.get(TouchSensor.class, "rightMagnetic");
+        leftMagnetic = Init.get(TouchSensor.class, "leftMagnetic");
 
         //HUG
         hugleftservo=Init.get(Servo.class,"hugleftservo");

@@ -31,12 +31,22 @@ public class teleoperado extends LinearOpMode {
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
 
+    public TouchSensor rightMagnetic = null;
+    public TouchSensor leftMagnetic = null;
+    public DcMotor Extend = null;
+
+
     private double distancerope;
 
 
     @Override
     public void runOpMode() {
         RobotMap robot = new RobotMap(hardwareMap);
+
+        rightMagnetic = robot.rightMagnetic;
+        leftMagnetic = robot.leftMagnetic;
+        Extend = robot.Extend;
+
 
         //DRIVETRAIN
         leftDrive=hardwareMap.get(DcMotorEx.class,"leftDrive");
@@ -97,6 +107,7 @@ public class teleoperado extends LinearOpMode {
         waitForStart();
 
         runtime.reset();
+        ExtendController.currentStatus = ExtendController.liftStatus.FREE;
         IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
         HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
         FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
@@ -128,8 +139,8 @@ public class teleoperado extends LinearOpMode {
 
 
 
-            //extend
-            /*if (currentGamepad2.cross && !previousGamepad2.cross) {
+            //EXTEND
+            if (currentGamepad2.cross && !previousGamepad2.cross) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF) {
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
@@ -140,10 +151,22 @@ public class teleoperado extends LinearOpMode {
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     hugTimer.reset();
 
-                } else if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
-                    ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
+                } else {
+                    ExtendController.currentStatus = ExtendController.liftStatus.INIT;
                 }
-            }*/
+            }
+
+            if (gamepad2.right_stick_y > 0.2 && gamepad2.right_stick_y < -0.2) {
+                ExtendController.currentStatus = ExtendController.liftStatus.FREE;
+                Extend.setPower(gamepad2.right_stick_y);
+
+            }
+
+
+            if (rightMagnetic.isPressed()) {
+                ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
+            }
+
 
 
             //ACCELERATOR
@@ -167,16 +190,22 @@ public class teleoperado extends LinearOpMode {
             if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {
                 if (IntakeController.currentStatus == IntakeController.intakeStatus.POWEROFF) {
                     IntakeController.currentStatus = IntakeController.intakeStatus.FORWARD;
+                    AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.ACCELERATE;
                 } else {
                     IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
+                    AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.OFF;
+
                 }
             }
 
             if (currentGamepad2.right_bumper && !previousGamepad2.right_bumper) {
                 if (IntakeController.currentStatus == IntakeController.intakeStatus.POWEROFF) {
                     IntakeController.currentStatus = IntakeController.intakeStatus.REVERSE;
+                    AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.DESACCELERATE;
+
                 } else {
                     IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
+                    AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.OFF;
                 }
             }
 
@@ -216,7 +245,6 @@ public class teleoperado extends LinearOpMode {
             }
 
             //RAMP
-
                if (currentGamepad2.triangle && !previousGamepad2.triangle) {
                 if (RampController.currentStatus == RampController.RampStatus.INIT) {
                     RampController.currentStatus = RampController.RampStatus.HIGH;
@@ -227,7 +255,7 @@ public class teleoperado extends LinearOpMode {
 
 
             //FUNNEL
-            if (currentGamepad2.square && !previousGamepad2.square) {
+            if (currentGamepad1.square && !previousGamepad1.square) {
                 if (FunnelController.currentStatus == FunnelController.FunnelStatus.INIT) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
                 } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.HIGH){
@@ -239,7 +267,6 @@ public class teleoperado extends LinearOpMode {
 
 
             //HUG
-
            if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
                 if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
@@ -252,12 +279,13 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+           // CERRADA DEL HUG
             if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 3) {
                 HugController.currentStatus = HugController.hugStatus.CLOSED;
 
             }
 
-
+            //HUG EN GAMEPAD 1
             if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) {
                 if (HugController.currentStatus == HugController.hugStatus.STRAIGHT) {
                     HugController.currentStatus = HugController.hugStatus.LEFT_FLOW;
@@ -320,6 +348,7 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Hug Angle Left", hugController.hugleftservo.getPosition());
             telemetry.addData("Hug Angle Right", hugController.hugrightservo.getPosition());
             telemetry.addData("extendDistance", ExtendController.Extend.getCurrentPosition());
+            telemetry.addData("Extend Status", ExtendController.currentStatus);
 
 
             telemetry.update();
