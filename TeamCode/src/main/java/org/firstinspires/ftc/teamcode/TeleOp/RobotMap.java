@@ -31,8 +31,6 @@ public class RobotMap {
     public Servo leftramp;
     public Servo rightramp;
 
-    public TouchSensor left_magnetic;
-    public TouchSensor right_magnetic;
 
     public DistanceSensor distance;
 
@@ -41,8 +39,6 @@ public class RobotMap {
     {
 
         //SENSORES MAGNETICOS
-        left_magnetic = hardwareMap.get(TouchSensor.class, "left_magnetic");
-        right_magnetic = hardwareMap.get(TouchSensor.class, "right_magnetic");
 
         //ACCELERATOR
         Accelerator=Init.get(DcMotorEx.class,"Accelerator");

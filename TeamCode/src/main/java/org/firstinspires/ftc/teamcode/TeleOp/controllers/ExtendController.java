@@ -21,13 +21,6 @@ public class ExtendController {
 
     public static DcMotorEx Extend = null;
 
-    public static TouchSensor rightmagnetic = null;
-    public static TouchSensor leftmagnetic = null;
-
-
-
-
-
     public int init_position = 0;
     public static int collect_position = 2140;
 
@@ -38,8 +31,6 @@ public class ExtendController {
 
     public ExtendController(RobotMap robot) {
         Extend = robot.Extend;
-        rightmagnetic = robot.right_magnetic;
-        leftmagnetic = robot.left_magnetic;
 
 
     }
@@ -47,12 +38,19 @@ public class ExtendController {
     public void update(int target) {
 
         // Si el estado ha cambiado
-        double extendPower = gamepad2.left_stick_y;
+        double distanciaExtend = ExtendController.Extend.getCurrentPosition();
 
-        if (Extend != null) {
-            Extend.setPower(extendPower);
+
+
+        if (distanciaExtend < 2390 ) {
+            Extend.setPower(gamepad2.left_stick_y);
+        } else if (distanciaExtend > 2390) {
+            Extend.setPower(0.1);
+        } else if (distanciaExtend < -20) {
+            Extend.setPower(-0.1);
+        } else {
+            Extend.setPower(0);
         }
-
 
         /*if (currentStatus != previousStatus) {
             previousStatus = currentStatus;
