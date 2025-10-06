@@ -25,7 +25,7 @@ public class ExtendController {
     public static DcMotorEx Extend = null;
 
     public int init_position = 0;
-    public static int collect_position = 2140;
+    public static int collect_position = 2400;
 
     public static int rightLiftSpeed = 2500;
 

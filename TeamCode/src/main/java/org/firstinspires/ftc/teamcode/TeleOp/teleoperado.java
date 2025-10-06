@@ -128,15 +128,6 @@ public class teleoperado extends LinearOpMode {
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
             double extendDistance = ExtendController.Extend.getCurrentPosition();
 
-            //HUG WITH EXTEND
-            if (extendDistance < 50){
-                HugController.currentStatus = HugController.hugStatus.INIT;
-                hugTimer.reset();
-            } else if (extendDistance > 1900) {
-                HugController.currentStatus = HugController.hugStatus.INIT;
-                hugTimer.reset();
-            }
-
 
 
             //EXTEND
@@ -152,21 +143,9 @@ public class teleoperado extends LinearOpMode {
                     hugTimer.reset();
 
                 } else {
-                    ExtendController.currentStatus = ExtendController.liftStatus.INIT;
+                    ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
                 }
             }
-
-            if (gamepad2.right_stick_y > 0.2 && gamepad2.right_stick_y < -0.2) {
-                ExtendController.currentStatus = ExtendController.liftStatus.FREE;
-                Extend.setPower(gamepad2.right_stick_y);
-
-            }
-
-
-            if (rightMagnetic.isPressed()) {
-                ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
-            }
-
 
 
             //ACCELERATOR
@@ -255,7 +234,7 @@ public class teleoperado extends LinearOpMode {
 
 
             //FUNNEL
-            if (currentGamepad1.square && !previousGamepad1.square) {
+            if (currentGamepad2.square && !previousGamepad2.square) {
                 if (FunnelController.currentStatus == FunnelController.FunnelStatus.INIT) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
                 } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.HIGH){
