@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOp.controllers;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.TeleOp.RobotMap;
 
@@ -33,7 +29,7 @@ public class ExtendController {
     public int currentPosition = init_position;
 
     public ExtendController(RobotMap robot) {
-        Extend = robot.Extend;
+        Extend = robot.extend;
 
 
     }

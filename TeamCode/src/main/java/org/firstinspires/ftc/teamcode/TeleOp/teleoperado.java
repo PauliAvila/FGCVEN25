@@ -33,7 +33,6 @@ public class teleoperado extends LinearOpMode {
 
     public TouchSensor rightMagnetic = null;
     public TouchSensor leftMagnetic = null;
-    public DcMotor Extend = null;
 
 
     private double distancerope;
@@ -45,7 +44,6 @@ public class teleoperado extends LinearOpMode {
 
         rightMagnetic = robot.rightMagnetic;
         leftMagnetic = robot.leftMagnetic;
-        Extend = robot.Extend;
 
 
         //DRIVETRAIN
@@ -126,8 +124,6 @@ public class teleoperado extends LinearOpMode {
             currentGamepad2.copy(gamepad2);
 
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
-            double extendDistance = ExtendController.Extend.getCurrentPosition();
-
 
 
             //EXTEND
@@ -145,6 +141,10 @@ public class teleoperado extends LinearOpMode {
                 } else {
                     ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
                 }
+            }
+
+            if (rightMagnetic.isPressed()){
+                ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
             }
 
 
@@ -326,7 +326,6 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("hugtimer", hugTimer.seconds());
             telemetry.addData("Hug Angle Left", hugController.hugleftservo.getPosition());
             telemetry.addData("Hug Angle Right", hugController.hugrightservo.getPosition());
-            telemetry.addData("extendDistance", ExtendController.Extend.getCurrentPosition());
             telemetry.addData("Extend Status", ExtendController.currentStatus);
 
 
