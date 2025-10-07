@@ -18,9 +18,9 @@ public class ExtendController {
     public static liftStatus currentStatus = liftStatus.INIT;
     public liftStatus previousStatus = null;
 
-    public static DcMotorEx Extend = null;
+    public static DcMotorEx extend = null;
 
-    public int init_position = -50;
+    public int init_position = -100;
     public static int collect_position = 2400;
 
     public static int rightLiftSpeed = 2500;
@@ -29,7 +29,7 @@ public class ExtendController {
     public int currentPosition = init_position;
 
     public ExtendController(RobotMap robot) {
-        Extend = robot.Extend;
+        extend = robot.extend;
     }
 
     public void update(float target) {
@@ -40,29 +40,25 @@ public class ExtendController {
             switch (currentStatus) {
 
                 case INIT:
-                    Extend.setTargetPosition(init_position);
-                    Extend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    Extend.setVelocity(rightLiftSpeed);
+                    extend.setTargetPosition(init_position);
+                    extend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                    extend.setVelocity(rightLiftSpeed);
 
                     currentPosition = init_position;
                     break;
 
                 case POWEROFF:
-                    Extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    Extend.setPower(0);
+                    extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    extend.setPower(0);
                     break;
 
                 case  COLLECT:
-                    Extend.setTargetPosition(collect_position);
-                    Extend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    Extend.setVelocity(rightLiftSpeed);
-
+                    extend.setTargetPosition(collect_position);
+                    extend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                    extend.setVelocity(rightLiftSpeed);
                     currentPosition = collect_position;
                     break;
 
-                case FREE:
-                    Extend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    break;
             }
         }
     }

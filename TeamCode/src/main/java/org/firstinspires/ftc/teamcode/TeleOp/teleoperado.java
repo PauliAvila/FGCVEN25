@@ -105,7 +105,7 @@ public class teleoperado extends LinearOpMode {
         waitForStart();
 
         runtime.reset();
-        ExtendController.currentStatus = ExtendController.liftStatus.FREE;
+        ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
         IntakeController.currentStatus = IntakeController.intakeStatus.POWEROFF;
         HangingController.currentStatus = HangingController.hangingStatus.POWEROFF;
         FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
@@ -141,11 +141,14 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (rightMagnetic.isPressed()) {
+            if (rightMagnetic.isPressed() && leftMagnetic.isPressed() ) {
                 if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
                 }
             }
+
+
+
 
 
             //ACCELERATOR
@@ -312,7 +315,7 @@ public class teleoperado extends LinearOpMode {
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime);
-            telemetry.addData("rightExtend speed", ExtendController.Extend.getVelocity());
+            telemetry.addData("rightExtend speed", ExtendController.extend.getVelocity());
             telemetry.addData("Intake Status", IntakeController.currentStatus);
             telemetry.addData("Hanging Status", HangingController.currentStatus);
             telemetry.addData("velocidad core", HangingController.hangingCore.getVelocity());

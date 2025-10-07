@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 public class RobotMap {
 
     public DcMotorEx Accelerator;
-    public DcMotorEx Extend;
+    public DcMotorEx extend;
     public DcMotorEx intake;
     public DcMotorEx hangingright;
     public DcMotorEx hangingleft;
@@ -44,11 +44,11 @@ public class RobotMap {
         Accelerator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //EXTENSION
-        Extend =Init.get(DcMotorEx.class,"Extend");
-        Extend.setDirection(DcMotor.Direction.FORWARD);
-        Extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Extend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        extend =Init.get(DcMotorEx.class,"extend");
+        extend.setDirection(DcMotor.Direction.FORWARD);
+        extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //INTAKE
         intake=Init.get(DcMotorEx.class,"intake");
