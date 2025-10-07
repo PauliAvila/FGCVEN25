@@ -20,7 +20,7 @@ public class ExtendController {
 
     public static DcMotorEx Extend = null;
 
-    public int init_position = 0;
+    public int init_position = -50;
     public static int collect_position = 2400;
 
     public static int rightLiftSpeed = 2500;
@@ -29,9 +29,7 @@ public class ExtendController {
     public int currentPosition = init_position;
 
     public ExtendController(RobotMap robot) {
-        Extend = robot.extend;
-
-
+        Extend = robot.Extend;
     }
 
     public void update(float target) {

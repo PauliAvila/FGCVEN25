@@ -114,7 +114,6 @@ public class teleoperado extends LinearOpMode {
 
 
 
-
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -132,8 +131,7 @@ public class teleoperado extends LinearOpMode {
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
                     hugTimer.reset();
-                }
-                else if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT) {
+                } else if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT) {
                     ExtendController.currentStatus = ExtendController.liftStatus.INIT;
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     hugTimer.reset();
@@ -143,8 +141,10 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-            if (rightMagnetic.isPressed()){
-                ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
+            if (rightMagnetic.isPressed()) {
+                if (ExtendController.currentStatus == ExtendController.liftStatus.INIT) {
+                    ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
+                }
             }
 
 
@@ -224,32 +224,32 @@ public class teleoperado extends LinearOpMode {
             }
 
             //RAMP
-               if (currentGamepad2.triangle && !previousGamepad2.triangle) {
+            if (currentGamepad2.triangle && !previousGamepad2.triangle) {
                 if (RampController.currentStatus == RampController.RampStatus.INIT) {
                     RampController.currentStatus = RampController.RampStatus.HIGH;
                 } else {
                     RampController.currentStatus = RampController.RampStatus.INIT;
                 }
-               }
+            }
 
 
             //FUNNEL
             if (currentGamepad2.square && !previousGamepad2.square) {
                 if (FunnelController.currentStatus == FunnelController.FunnelStatus.INIT) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.HIGH;
-                } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.HIGH){
+                } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.HIGH) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.MEDIUM;
-                } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.MEDIUM){
+                } else if (FunnelController.currentStatus == FunnelController.FunnelStatus.MEDIUM) {
                     FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
                 }
             }
 
 
             //HUG
-           if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
+            if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
                 if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
-                } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT){
+                } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT) {
                     HugController.currentStatus = HugController.hugStatus.HUG;
                 } else {
                     HugController.currentStatus = HugController.hugStatus.INIT;
@@ -258,7 +258,7 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
-           // CERRADA DEL HUG
+            // CERRADA DEL HUG
             if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 3) {
                 HugController.currentStatus = HugController.hugStatus.CLOSED;
 
@@ -323,10 +323,12 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Distance", DistanceSensorController.distance.getDistance(DistanceUnit.CM));
             telemetry.addData("Accelerator Status", AcceleratorController.currentStatus);
             telemetry.addData("Hug Status", HugController.currentStatus);
-            telemetry.addData("hugtimer", hugTimer.seconds());
+            telemetry.addData("Hugtimer", hugTimer.seconds());
             telemetry.addData("Hug Angle Left", hugController.hugleftservo.getPosition());
             telemetry.addData("Hug Angle Right", hugController.hugrightservo.getPosition());
             telemetry.addData("Extend Status", ExtendController.currentStatus);
+            telemetry.addData("Magnetic Right Status",rightMagnetic.isPressed());
+            telemetry.addData("Magnetic Left Status",leftMagnetic.isPressed());
 
 
             telemetry.update();
