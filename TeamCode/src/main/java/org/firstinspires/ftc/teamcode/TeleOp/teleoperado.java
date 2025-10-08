@@ -332,6 +332,7 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Extend Status", ExtendController.currentStatus);
             telemetry.addData("Magnetic Right Status",rightMagnetic.isPressed());
             telemetry.addData("Magnetic Left Status",leftMagnetic.isPressed());
+            telemetry.addData("Posicion extend", ExtendController.extend.getCurrentPosition());
 
 
             telemetry.update();

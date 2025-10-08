@@ -29,8 +29,8 @@ public class HugController {
     public static double straight_positionR = 0.375;
     public static double closed_positionL =  0.99;
     public static double closed_positionR =  0.99;
-    public static double left_flow_positionL =  0.2;
-    public static double left_flow_positionR =  0.4;
+    public static double left_flow_positionL =  0.4;
+    public static double left_flow_positionR =  0.2;
     public static double right_flow_positionL =  0.2;
     public static double right_flow_positionR =  0.4;
     public static double hug_positionL =  0.13;
