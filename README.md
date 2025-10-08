@@ -2,7 +2,7 @@
 
 Welcome to **FGCVEN25**, the Team Venezuela's repository for the **2025 FIRST Global Challenge**!  
 Here you’ll find all of our robot code and documentation developed for the competition.
-[![Ask Deepwiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/aschvley/ATTENDIX)
+[![Ask Deepwiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/PauliAvila/FGCVEN25)
 
 > 🤖 *This project represents teamwork, innovation, and STEM applied to robotics at an international level.*
 
@@ -89,8 +89,7 @@ FGCVEN25/
 Team members should:
 1. Work on feature branches (`feature/autonomous`, `fix/drive-train`) and, if authorized, merge to keep the history organized.
 2. Follow consistent commit messages.
-3. Document significant changes in `doc/`.
-4. Open Pull Requests for review before merging into `main`.
+3. Open Pull Requests for review before merging into `main` or `clean-code`.
 
 ---
 
