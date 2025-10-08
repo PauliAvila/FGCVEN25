@@ -89,7 +89,11 @@ FGCVEN25/
 Team members should:
 1. Work on feature branches (`feature/autonomous`, `fix/drive-train`) and, if authorized, merge to keep the history organized.
 2. Follow consistent commit messages.
+<<<<<<< HEAD
 3. Open Pull Requests for review before merging into `main`.
+=======
+3. Open Pull Requests for review before merging into `main` or `clean-code`.
+>>>>>>> d60e5ad05ca6dfed8420daec5b090919ded56af7
 
 ---
 
