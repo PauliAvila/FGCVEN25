@@ -68,7 +68,6 @@ FGCVEN25/
 ### 🔑 Key Folders
 - **TeamCode/** → Our custom programs (autonomous routines, teleop driver code, helper classes).
 - **FtcRobotController/** → Unmodified FTC SDK project files.
-- **doc/** → Notes on rules, design, electrical/mechanical docs, and team strategies.
 - **libs/** → Place for third-party or custom libraries.
 
 ---
