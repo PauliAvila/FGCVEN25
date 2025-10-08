@@ -2,6 +2,7 @@
 
 Welcome to **FGCVEN25**, the Team Venezuela's repository for the **2025 FIRST Global Challenge**!  
 Here you’ll find all of our robot code and documentation developed for the competition.
+[![Ask Deepwiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/aschvley/ATTENDIX)
 
 > 🤖 *This project represents teamwork, innovation, and STEM applied to robotics at an international level.*
 
