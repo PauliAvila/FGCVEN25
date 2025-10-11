@@ -12,10 +12,10 @@ public class ExtendController {
         INIT,
         POWEROFF,
         COLLECT,
-        FREE
+        POWEROFFEXTEND
     }
 
-    public static liftStatus currentStatus = liftStatus.INIT;
+    public static liftStatus currentStatus = liftStatus.POWEROFF;
     public liftStatus previousStatus = null;
 
     public static DcMotorEx extend = null;
@@ -57,6 +57,10 @@ public class ExtendController {
                     extend.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     extend.setVelocity(rightLiftSpeed);
                     currentPosition = collect_position;
+                    break;
+
+                case POWEROFFEXTEND:
+                    extend.setPower(0);
                     break;
 
             }

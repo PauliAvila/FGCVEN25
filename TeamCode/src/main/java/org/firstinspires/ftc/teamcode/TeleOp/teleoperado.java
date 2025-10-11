@@ -27,6 +27,7 @@ public class teleoperado extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private final ElapsedTime hugTimer = new ElapsedTime();
 
+    private final ElapsedTime extendTimer = new ElapsedTime();
 
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
@@ -100,6 +101,7 @@ public class teleoperado extends LinearOpMode {
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
         FunnelController.currentStatus = FunnelController.FunnelStatus.INIT;
+
         funnelController.update();
 
         waitForStart();
@@ -131,13 +133,10 @@ public class teleoperado extends LinearOpMode {
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     ExtendController.currentStatus = ExtendController.liftStatus.COLLECT;
                     hugTimer.reset();
-                } else if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT) {
+                } else {
                     ExtendController.currentStatus = ExtendController.liftStatus.INIT;
                     HugController.currentStatus = HugController.hugStatus.INIT;
                     hugTimer.reset();
-
-                } else {
-                    ExtendController.currentStatus = ExtendController.liftStatus.POWEROFF;
                 }
             }
 
@@ -147,6 +146,9 @@ public class teleoperado extends LinearOpMode {
                 }
             }
 
+            if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT && ExtendController.extend.getCurrentPosition() > 2400){
+                ExtendController.currentStatus = ExtendController.liftStatus.POWEROFFEXTEND;
+            }
 
 
 
@@ -262,7 +264,7 @@ public class teleoperado extends LinearOpMode {
             }
 
             // CERRADA DEL HUG
-            if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 3) {
+            if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 2.5) {
                 HugController.currentStatus = HugController.hugStatus.CLOSED;
 
             }
