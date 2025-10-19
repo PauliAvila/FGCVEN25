@@ -26,6 +26,12 @@ public class teleoperado extends LinearOpMode {
     // Declare OpMode members for each of the 4 motors.
     private final ElapsedTime runtime = new ElapsedTime();
     private final ElapsedTime hugTimer = new ElapsedTime();
+    private final ElapsedTime AccelerateTimer = new ElapsedTime();
+    private final ElapsedTime RumbleTimer = new ElapsedTime();
+
+
+
+
 
     private final ElapsedTime extendTimer = new ElapsedTime();
 
@@ -116,6 +122,7 @@ public class teleoperado extends LinearOpMode {
 
 
 
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -126,6 +133,20 @@ public class teleoperado extends LinearOpMode {
 
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
 
+
+
+            if (currentGamepad1.circle && !previousGamepad1.circle){
+                AccelerateTimer.reset();
+
+            }
+            if (AccelerateTimer.seconds() > 20){
+
+                if (RumbleTimer.seconds() > 3){
+                gamepad1.rumble(500);
+                gamepad2.rumble(500);
+                RumbleTimer.reset();
+                }
+            }
 
             //EXTEND
             if (currentGamepad2.cross && !previousGamepad2.cross) {
@@ -149,7 +170,6 @@ public class teleoperado extends LinearOpMode {
             if (ExtendController.currentStatus == ExtendController.liftStatus.COLLECT && ExtendController.extend.getCurrentPosition() > 2400){
                 ExtendController.currentStatus = ExtendController.liftStatus.POWEROFFEXTEND;
             }
-
 
 
 
@@ -335,7 +355,8 @@ public class teleoperado extends LinearOpMode {
             telemetry.addData("Magnetic Right Status",rightMagnetic.isPressed());
             telemetry.addData("Magnetic Left Status",leftMagnetic.isPressed());
             telemetry.addData("Posicion extend", ExtendController.extend.getCurrentPosition());
-
+            telemetry.addData("Acceleration Timer", AccelerateTimer.seconds());
+            telemetry.addData("Rumble Timer", RumbleTimer.seconds());
 
             telemetry.update();
         }
