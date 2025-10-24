@@ -24,7 +24,7 @@ import android.graphics.Color;
 
 
 @Config
-@TeleOp(name="teleoperado", group="Linear OpMode")
+@TeleOp(name="DELTA", group="Linear OpMode")
 public class teleoperado extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
@@ -78,8 +78,11 @@ public class teleoperado extends LinearOpMode {
         //COLOR SENSOR
         colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
 
+
+        telemetry.addLine("Welcome to Delta 🌊🇻🇪");
+        telemetry.addLine("THE ROBOT IS THE EXCUSE");
         telemetry.addLine("📊 Iniciando sensor de color...");
-        telemetry.addLine("Mantén el sensor frente al color que deseas calibrar.");
+
 
 
 

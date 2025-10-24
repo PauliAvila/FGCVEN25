@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import android.graphics.Color;
 
-@TeleOp(name = "ColorSensor Calibración HSV", group = "Sensor")
-public class ColorSensorTest extends LinearOpMode {
 
+public class ColorSensorTest extends LinearOpMode {
     ColorSensor colorSensor;
 
     // ---- Rangos de Hue configurables ----
