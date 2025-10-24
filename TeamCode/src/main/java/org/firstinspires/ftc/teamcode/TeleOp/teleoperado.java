@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.ftccommon.SoundPlayer;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.AcceleratorController;
@@ -83,8 +84,16 @@ public class teleoperado extends LinearOpMode {
         telemetry.addLine("THE ROBOT IS THE EXCUSE");
         telemetry.addLine("📊 Iniciando sensor de color...");
 
+// --- PLAY SOUND DURING INIT SCREEN ---
+        int soundID = hardwareMap.appContext.getResources().getIdentifier(
+                "hans_zimmer", "raw", hardwareMap.appContext.getPackageName());
 
-
+        if (soundID != 0) {
+            SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, soundID);
+            telemetry.addLine("🎵 Playing Hans Zimmer theme...");
+        } else {
+            telemetry.addLine("⚠️ Sound resource not found!");
+        }
 
         //CONTROLLERS
         ExtendController extendController;
@@ -342,7 +351,7 @@ public class teleoperado extends LinearOpMode {
 
             //HUG
             if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
-                if (HugController.currentStatus == HugController.hugStatus.CLOSED && HugController.currentStatus == HugController.hugStatus.INIT) {
+                if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT) {
                     HugController.currentStatus = HugController.hugStatus.HUG;
