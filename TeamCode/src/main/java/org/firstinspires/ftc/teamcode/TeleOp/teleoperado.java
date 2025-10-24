@@ -185,13 +185,13 @@ public class teleoperado extends LinearOpMode {
             telemetry.addLine();
 
             // ---- Mostrar rangos configurados ----
-            telemetry.addLine("🎯 RANGOS CONFIGURADOS:");
+           /* telemetry.addLine("🎯 RANGOS CONFIGURADOS:");
             telemetry.addData("Rojo", "[%.0f° - %.0f°]", RED_HUE_RANGE[0], RED_HUE_RANGE[1]);
             telemetry.addData("Naranja", "[%.0f° - %.0f°]", ORANGE_HUE_RANGE[0], ORANGE_HUE_RANGE[1]);
             telemetry.addData("Amarillo", "[%.0f° - %.0f°]", YELLOW_HUE_RANGE[0], YELLOW_HUE_RANGE[1]);
             telemetry.addData("Azul", "[%.0f° - %.0f°]", BLUE_HUE_RANGE[0], BLUE_HUE_RANGE[1]);
             telemetry.addData("Mín. Saturación", "%.2f", MIN_SATURATION);
-            telemetry.addData("Mín. Valor", "%.2f", MIN_VALUE);
+            telemetry.addData("Mín. Valor", "%.2f", MIN_VALUE);*/
             telemetry.addLine();
 
             // ---- Detectar color actual ----
@@ -349,11 +349,15 @@ public class teleoperado extends LinearOpMode {
             }
 
 
-            //HUG
+            //HUG EN GAMEPAD 2
             if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
                 if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
+                    hugTimer.reset();
+                    HugController.currentStatus = HugController.hugStatus.INIT;
+                }
+                else if (HugController.currentStatus == HugController.hugStatus.INIT) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
-                } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT) {
+                }  else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT) {
                     HugController.currentStatus = HugController.hugStatus.HUG;
                 } else {
                     HugController.currentStatus = HugController.hugStatus.INIT;
