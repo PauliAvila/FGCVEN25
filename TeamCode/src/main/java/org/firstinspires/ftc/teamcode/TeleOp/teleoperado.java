@@ -284,7 +284,7 @@ public class teleoperado extends LinearOpMode {
             }
 
             // CERRADA DEL HUG
-            if (HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 2.5) {
+            if (ExtendController.currentStatus == ExtendController.liftStatus.POWEROFF && HugController.currentStatus == HugController.hugStatus.INIT && hugTimer.seconds() > 3.3) {
                 HugController.currentStatus = HugController.hugStatus.CLOSED;
 
             }
