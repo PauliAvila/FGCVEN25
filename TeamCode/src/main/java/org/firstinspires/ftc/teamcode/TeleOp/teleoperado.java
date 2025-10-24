@@ -342,7 +342,7 @@ public class teleoperado extends LinearOpMode {
 
             //HUG
             if (currentGamepad2.touchpad && !previousGamepad2.touchpad) {
-                if (HugController.currentStatus == HugController.hugStatus.CLOSED) {
+                if (HugController.currentStatus == HugController.hugStatus.CLOSED && HugController.currentStatus == HugController.hugStatus.INIT) {
                     HugController.currentStatus = HugController.hugStatus.STRAIGHT;
                 } else if (HugController.currentStatus == HugController.hugStatus.STRAIGHT) {
                     HugController.currentStatus = HugController.hugStatus.HUG;
