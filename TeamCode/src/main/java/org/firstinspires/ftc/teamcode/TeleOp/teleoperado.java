@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -18,6 +19,9 @@ import org.firstinspires.ftc.teamcode.TeleOp.controllers.HangingController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.HugController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.IntakeController;
 import org.firstinspires.ftc.teamcode.TeleOp.controllers.RampController;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import android.graphics.Color;
+
 
 @Config
 @TeleOp(name="teleoperado", group="Linear OpMode")
@@ -30,7 +34,17 @@ public class teleoperado extends LinearOpMode {
     private final ElapsedTime RumbleTimer = new ElapsedTime();
 
 
+    ColorSensor colorSensor;
 
+    // ---- Rangos de Hue configurables ----
+    final float[] RED_HUE_RANGE = {0f, 30f};
+    final float[] ORANGE_HUE_RANGE = {34f, 70f};
+    final float[] YELLOW_HUE_RANGE = {80f, 100f};
+    final float[] BLUE_HUE_RANGE = {200f, 250f};
+
+    // ---- Parámetros de saturación y brillo ----
+    final float MIN_SATURATION = 0.45f;
+    final float MIN_VALUE = 0.35f;
 
 
     private final ElapsedTime extendTimer = new ElapsedTime();
@@ -59,6 +73,13 @@ public class teleoperado extends LinearOpMode {
 
         rightDrive=hardwareMap.get(DcMotorEx.class,"rightDrive");
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+
+
+        //COLOR SENSOR
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
+
+        telemetry.addLine("📊 Iniciando sensor de color...");
+        telemetry.addLine("Mantén el sensor frente al color que deseas calibrar.");
 
 
 
@@ -125,7 +146,6 @@ public class teleoperado extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
             previousGamepad1.copy(currentGamepad1);
             previousGamepad2.copy(currentGamepad2);
             currentGamepad1.copy(gamepad1);
@@ -133,6 +153,45 @@ public class teleoperado extends LinearOpMode {
 
             distancerope = DistanceSensorController.distance.getDistance(DistanceUnit.CM);
 
+            float[] hsv = new float[3];
+            Color.RGBToHSV(
+                    colorSensor.red() * 8,
+                    colorSensor.green() * 8,
+                    colorSensor.blue() * 8,
+                    hsv
+            );
+
+            float hue = hsv[0];
+            float sat = hsv[1];
+            float val = hsv[2];
+
+            // ---- Mostrar datos en tiempo real ----
+            telemetry.addLine("🎨 VALORES EN VIVO");
+            telemetry.addData("Hue", "%.1f°", hue);
+            telemetry.addData("Saturación", "%.2f", sat);
+            telemetry.addData("Valor (brillo)", "%.2f", val);
+            telemetry.addLine();
+
+            // ---- Mostrar rangos configurados ----
+            telemetry.addLine("🎯 RANGOS CONFIGURADOS:");
+            telemetry.addData("Rojo", "[%.0f° - %.0f°]", RED_HUE_RANGE[0], RED_HUE_RANGE[1]);
+            telemetry.addData("Naranja", "[%.0f° - %.0f°]", ORANGE_HUE_RANGE[0], ORANGE_HUE_RANGE[1]);
+            telemetry.addData("Amarillo", "[%.0f° - %.0f°]", YELLOW_HUE_RANGE[0], YELLOW_HUE_RANGE[1]);
+            telemetry.addData("Azul", "[%.0f° - %.0f°]", BLUE_HUE_RANGE[0], BLUE_HUE_RANGE[1]);
+            telemetry.addData("Mín. Saturación", "%.2f", MIN_SATURATION);
+            telemetry.addData("Mín. Valor", "%.2f", MIN_VALUE);
+            telemetry.addLine();
+
+            // ---- Detectar color actual ----
+            if (isRed(hsv)) {
+                telemetry.addLine("🔴 Detectado: ROJO");
+            } else if (isYellow(hsv)) {
+                telemetry.addLine("🟨 Detectado: AMARILLO");
+            } else if (isBlue(hsv)) {
+                telemetry.addLine("🔵 Detectado: AZUL");
+            } else {
+                telemetry.addLine("⚪ Ningún color reconocido");
+            }
 
 
             if (currentGamepad1.circle && !previousGamepad1.circle){
@@ -171,6 +230,14 @@ public class teleoperado extends LinearOpMode {
                 ExtendController.currentStatus = ExtendController.liftStatus.POWEROFFEXTEND;
             }
 
+            boolean isOrange = (hue >= ORANGE_HUE_RANGE[0] && hue <= ORANGE_HUE_RANGE[1])
+                    && (sat >= MIN_SATURATION)
+                    && (val >= MIN_VALUE);
+
+            if (isOrange) {
+                telemetry.addLine("🟧 NARANJA DETECTADO — Acelerador activado automáticamente");
+                AcceleratorController.currentStatus = AcceleratorController.acceleratorStatus.ACCELERATE;
+            }
 
 
             //ACCELERATOR
@@ -361,7 +428,26 @@ public class teleoperado extends LinearOpMode {
             telemetry.update();
         }
     }
+
+    boolean isRed(float[] hsv) {
+        return ((hsv[0] >= RED_HUE_RANGE[0] && hsv[0] <= RED_HUE_RANGE[1]) ||
+                (hsv[0] >= 350 && hsv[0] <= 360)) &&
+                hsv[1] >= MIN_SATURATION && hsv[2] >= MIN_VALUE;
+    }
+
+
+
+    boolean isYellow(float[] hsv) {
+        return (hsv[0] >= YELLOW_HUE_RANGE[0] && hsv[0] <= YELLOW_HUE_RANGE[1]) &&
+                hsv[1] >= MIN_SATURATION && hsv[2] >= MIN_VALUE;
+    }
+
+    boolean isBlue(float[] hsv) {
+        return (hsv[0] >= BLUE_HUE_RANGE[0] && hsv[0] <= BLUE_HUE_RANGE[1]) &&
+                hsv[1] >= MIN_SATURATION && hsv[2] >= MIN_VALUE;
+    }
 }
+
 
 
 
